@@ -1,0 +1,796 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Winter Wonderland | DB Orchester</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+body{margin:0;font-family:'Inter',sans-serif;background:#f8fafc;color:#0f172a}
+h1,h2,h3,h4{font-family:'Playfair Display',serif;margin:0}
+p{margin:0}
+a{color:#2563eb}a:hover{color:#1e40af}
+html{scroll-behavior:smooth}
+section[id],footer[id]{scroll-margin-top:72px}
+.nav-links a:hover{color:#1e40af}
+.nav-mobile{display:none}
+.sm-only{display:none}
+.lang-wrap{position:relative;display:inline-flex;align-items:center;color:#334155}
+.lang-wrap svg{position:absolute;left:10px;pointer-events:none}
+.lang-sel{appearance:none;-webkit-appearance:none;height:40px;padding:0 28px 0 34px;background:transparent url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' fill='none' stroke='%23334155' stroke-width='1.6'%3E%3Cpath d='M1 1l4 4 4-4'/%3E%3C/svg%3E") no-repeat right 10px center;border:1px solid #cbd5e1;border-radius:9999px;color:#334155;font:500 13px 'Inter',sans-serif;cursor:pointer;max-width:150px}
+.lang-sel:hover{border-color:#2563eb}
+.lang-sel:focus-visible{outline:2px solid #2563eb;outline-offset:2px}
+.lang-panel{padding:14px 8px 4px}
+.lang-panel .lang-sel{height:44px;font-size:16px;max-width:none;width:100%}
+.hero-note a{color:#1e40af;text-decoration:underline;text-underline-offset:3px}
+.ft-note a,.ft-join a{color:#ffffff;text-decoration:underline;text-underline-offset:4px}
+html[lang="ja"] body,html[lang="ja"] p,html[lang="ja"] a,html[lang="ja"] button,html[lang="ja"] select,html[lang="ja"] span{font-family:'Inter','Hiragino Sans','Hiragino Kaku Gothic ProN','Yu Gothic','Meiryo',sans-serif}
+html[lang="ja"] h1,html[lang="ja"] h2,html[lang="ja"] h3,html[lang="ja"] h4{font-family:'Playfair Display','Hiragino Mincho ProN','Yu Mincho','MS PMincho',serif}
+html[lang="ja"] *{letter-spacing:normal !important}
+html[lang="ja"] .info-text,html[lang="ja"] p{line-break:strict;word-break:normal;overflow-wrap:anywhere}
+.lang-desktop{display:inline-flex}
+.nav-panel{display:none}
+.nav-panel[hidden]{display:none}
+@media (max-width:860px){
+.nav-links{display:none !important}
+.nav-mobile{display:flex}
+.nav-panel{display:flex}
+.sm-hide{display:none}
+.sm-only{display:inline}
+.lang-desktop{display:none}
+.nav-inner{padding-left:16px !important;padding-right:16px !important;gap:12px !important}
+}
+.prog-item{display:flex;flex-wrap:wrap;align-items:flex-start;gap:0 16px;padding:28px 0;border-bottom:1px solid #cbd5e1}
+.prog-num{width:32px;flex-shrink:0;font-family:'Playfair Display',serif;font-size:18px;color:#94a3b8;padding-top:8px}
+.prog-main{flex:1 1 140px;min-width:0}
+.info-btn{flex-shrink:0;align-self:flex-start;display:inline-flex;align-items:center;gap:12px;height:44px;padding:0 2px 0 8px;background:transparent;border:0;color:#475569;font:500 12px 'Inter',sans-serif;letter-spacing:0.18em;text-transform:uppercase;cursor:pointer;transition:color .2s}
+.info-btn:hover{color:#2563eb}
+.info-btn:focus-visible{outline:2px solid #2563eb;outline-offset:2px;border-radius:9999px}
+.info-plus{position:relative;width:32px;height:32px;border:1px solid #cbd5e1;border-radius:9999px;transition:transform .3s ease,background .2s,border-color .2s}
+.info-plus::before,.info-plus::after{content:"";position:absolute;left:50%;top:50%;width:12px;height:1.5px;margin:-0.75px 0 0 -6px;background:currentColor;border-radius:1px}
+.info-plus::after{transform:rotate(90deg)}
+.info-btn:hover .info-plus{border-color:#2563eb}
+.info-btn[aria-expanded="true"] .info-plus{transform:rotate(45deg);background:#0f172a;border-color:#0f172a;color:#ffffff}
+.info-btn[aria-expanded="true"]{color:#0f172a}
+.info-panel{flex:0 0 100%;display:grid;grid-template-rows:0fr;visibility:hidden;transition:grid-template-rows .3s ease,visibility 0s linear .3s}
+.info-panel.open{grid-template-rows:1fr;visibility:visible;transition:grid-template-rows .3s ease,visibility 0s}
+.info-inner{min-height:0;overflow:hidden;box-sizing:border-box;padding-left:48px;max-width:720px}
+.info-inner>:first-child{margin-top:12px}
+.info-credit{font-size:13px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;color:#1e40af;margin-bottom:10px}
+.info-sub{font-size:15px;line-height:1.6;color:#475569}
+.info-text{font-size:16px;line-height:1.7;color:#334155;margin-top:10px}
+@media (max-width:860px){.info-inner{padding-left:0}}
+@media (max-width:520px){.info-label{display:none}.info-btn{padding-left:0}}
+</style>
+</head>
+<body>
+<div style="width: 100%; background: #f8fafc; font-family: 'Inter', sans-serif; color: #0f172a">
+
+<!-- Navigation -->
+<nav data-i18n-aria="aria_nav" aria-label="Hauptnavigation" style="position: sticky; top: 0; z-index: 50; background: rgba(255,255,255,0.88); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-bottom: 1px solid #e2e8f0">
+<div class="nav-inner" style="max-width: 1152px; margin: 0 auto; box-sizing: border-box; padding: 0 24px; min-height: 64px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 24px">
+<a href="#top" style="font-family: 'Playfair Display', serif; font-size: clamp(17px, 4.6vw, 20px); font-weight: 600; color: #0f172a; text-decoration: none; white-space: nowrap">Winter Wonderland</a>
+<div style="display: flex; align-items: center; gap: clamp(10px, 3vw, 32px)">
+<div class="nav-links" style="display: flex; align-items: center; gap: 28px; font-size: 14px; font-weight: 500">
+<a data-i18n="nav_overview" href="#details" style="color: #334155; text-decoration: none">Überblick</a>
+<a data-i18n="nav_program" href="#program" style="color: #334155; text-decoration: none">Programm</a>
+<a data-i18n="nav_ensemble" href="#about" style="color: #334155; text-decoration: none">Ensemble</a>
+<a data-i18n="nav_join" href="#mitspielen" style="color: #334155; text-decoration: none">Mitspielen</a>
+<a data-i18n="nav_contact" href="#tickets" style="color: #334155; text-decoration: none">Kontakt</a>
+</div>
+<label class="lang-wrap lang-desktop"><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.6 3.8 5.6 3.8 9S14.5 18.4 12 21c-2.5-2.6-3.8-5.6-3.8-9S9.5 5.6 12 3z"/></svg><select class="lang-sel" id="lang-d" data-i18n-aria="aria_lang" aria-label="Sprache"><option value="de">Deutsch</option><option value="en">English</option><option value="fr">Français</option><option value="es">Español</option><option value="it">Italiano</option><option value="pt">Português</option><option value="sv">Svenska</option><option value="da">Dansk</option><option value="ja">日本語</option></select></label>
+<a href="https://dbsw.sharepoint.com/:l:/t/DBEnsemblesFrankfurt/JAAYookm6mVxRoLatcVW9x_4AVlQhfe-wTzle7Z3K9kckSQ?nav=MTg5ZTMyMzEtNzZjYy00ZDU1LWIwNjctMzUzMWI5NDFkZGY0" target="_blank" rel="noopener" style="padding: 10px clamp(14px, 3vw, 20px); background: #0f172a; color: #ffffff; font-size: 14px; font-weight: 600; border-radius: 9999px; text-decoration: none; white-space: nowrap"><span class="sm-hide" data-i18n="btn_reserve">Plätze reservieren</span><span class="sm-only" data-i18n="reserve_short">reservieren</span></a>
+<button class="nav-mobile" data-i18n-aria="aria_menu" aria-label="Menü" id="nav-toggle" aria-expanded="false" style="width: 44px; height: 44px; padding: 0; align-items: center; justify-content: center; background: transparent; border: 1px solid #cbd5e1; border-radius: 12px; color: #0f172a; cursor: pointer">
+<svg width="22" height="22" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path id="nav-icon" d="M4 7h16M4 12h16M4 17h16" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+</button>
+</div>
+</div>
+<div id="nav-panel" class="nav-panel" hidden style="position: absolute; top: 100%; left: 0; right: 0; flex-direction: column; box-sizing: border-box; padding: 8px 16px 16px; background: rgba(255,255,255,0.97); border-bottom: 1px solid #e2e8f0; box-shadow: 0 12px 24px -12px rgba(0,0,0,0.2)">
+<a data-i18n="nav_overview" href="#details" style="padding: 14px 8px; color: #0f172a; font-size: 17px; font-weight: 500; text-decoration: none; border-bottom: 1px solid #f1f5f9">Überblick</a>
+<a data-i18n="nav_program" href="#program" style="padding: 14px 8px; color: #0f172a; font-size: 17px; font-weight: 500; text-decoration: none; border-bottom: 1px solid #f1f5f9">Programm</a>
+<a data-i18n="nav_ensemble" href="#about" style="padding: 14px 8px; color: #0f172a; font-size: 17px; font-weight: 500; text-decoration: none; border-bottom: 1px solid #f1f5f9">Ensemble</a>
+<a data-i18n="nav_join" href="#mitspielen" style="padding: 14px 8px; color: #0f172a; font-size: 17px; font-weight: 500; text-decoration: none; border-bottom: 1px solid #f1f5f9">Mitspielen</a>
+<a data-i18n="nav_contact" href="#tickets" style="padding: 14px 8px; color: #0f172a; font-size: 17px; font-weight: 500; text-decoration: none">Kontakt</a>
+<div class="lang-panel"><label class="lang-wrap "><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.6 3.8 5.6 3.8 9S14.5 18.4 12 21c-2.5-2.6-3.8-5.6-3.8-9S9.5 5.6 12 3z"/></svg><select class="lang-sel" id="lang-m" data-i18n-aria="aria_lang" aria-label="Sprache"><option value="de">Deutsch</option><option value="en">English</option><option value="fr">Français</option><option value="es">Español</option><option value="it">Italiano</option><option value="pt">Português</option><option value="sv">Svenska</option><option value="da">Dansk</option><option value="ja">日本語</option></select></label></div>
+</div>
+</nav>
+
+<!-- Hero -->
+<header style="position: relative; width: 100%; min-height: 95vh; box-sizing: border-box; display: flex; align-items: center; justify-content: center; background-color: #ffffff; background-image: url('Gemini_Generated_Image_f7l8waf7l8waf7l8_1.jpg'); background-size: cover; background-position: center; background-repeat: no-repeat; border-bottom: 1px solid #e2e8f0; padding: 120px 24px 140px; overflow: hidden">
+<div style="position: absolute; left: 0; right: 0; bottom: 0; height: 192px; background: linear-gradient(to top, #f8fafc, rgba(248,250,252,0)); pointer-events: none"></div>
+<div style="position: relative; max-width: 768px; box-sizing: border-box; padding: clamp(32px, 6vw, 56px) clamp(20px, 5vw, 40px); display: flex; flex-direction: column; align-items: center; text-align: center; background: rgba(255,255,255,0.85); border-radius: 24px; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25); border: 1px solid rgba(255,255,255,0.6)">
+<p style="color: #1e40af; letter-spacing: 0.2em; text-transform: uppercase; font-size: 14px; font-weight: 700; margin-bottom: 16px" data-i18n="hero_presents">Das DB Orchester präsentiert</p>
+<h1 style="font-size: clamp(40px, 11vw, 76px); font-weight: 700; line-height: 1.1; margin-bottom: 24px; color: #0f172a">Winter <br><span style="color: #2563eb; font-style: italic; font-weight: 300">Wonderland</span></h1>
+<p style="font-size: clamp(17px, 4.6vw, 20px); color: #334155; max-width: 672px; margin-bottom: 40px; font-weight: 300; line-height: 1.625" data-i18n="hero_sub">Ein festlicher Konzertabend in der Evangelischen Christuskirche Oberursel – mit Werken von Bach, Fauré und Ravel sowie bekannten Melodien aus The Polar Express und Frozen.</p>
+<div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 16px">
+<div style="display: inline-flex; align-items: stretch; background: #0f172a; border-radius: 9999px; box-shadow: 0 20px 25px -5px rgba(0,0,0,0.2); overflow: hidden">
+<a href="https://dbsw.sharepoint.com/:l:/t/DBEnsemblesFrankfurt/JAAYookm6mVxRoLatcVW9x_4AVlQhfe-wTzle7Z3K9kckSQ?nav=MTg5ZTMyMzEtNzZjYy00ZDU1LWIwNjctMzUzMWI5NDFkZGY0" target="_blank" rel="noopener" style="padding: 16px clamp(16px, 4vw, 28px); color: #ffffff; font-weight: 600; text-decoration: none" data-i18n="btn_reserve">Plätze reservieren</a>
+<span style="width: 1px; background: rgba(255,255,255,0.35); margin: 12px 0"></span>
+<a href="https://dbsw.sharepoint.com/:l:/t/DBEnsemblesFrankfurt/JAAYookm6mVxRoLatcVW9x_4AVlQhfe-wTzle7Z3K9kckSQ?nav=MTg5ZTMyMzEtNzZjYy00ZDU1LWIwNjctMzUzMWI5NDFkZGY0" target="_blank" rel="noopener" style="padding: 16px clamp(16px, 4vw, 28px); color: #ffffff; font-weight: 500; text-decoration: none" data-i18n="btn_cancel">stornieren</a>
+</div>
+<a href="#program" style="padding: 16px 32px; background: rgba(255,255,255,0.8); color: #0f172a; font-weight: 500; border-radius: 9999px; text-decoration: none; border: 1px solid #cbd5e1" data-i18n="btn_program">Programm ansehen</a>
+</div>
+<p class="hero-note" data-i18n="hero_note" style="margin-top: 20px; font-size: 13px; line-height: 1.5; color: #475569; max-width: 480px">Der Anmeldelink funktioniert nur für DB-Mitarbeitende. Alle anderen reservieren oder stornieren Plätze bitte per E-Mail an <a href="mailto:musik.ensembles@deutschebahn.com" style="color: #1e40af; text-decoration: underline; text-underline-offset: 3px">musik.ensembles@deutschebahn.com</a>.</p>
+<div style="margin-top: 24px; padding-top: 20px; border-top: 1px solid #e2e8f0; display: flex; flex-direction: column; align-items: center; gap: 10px">
+<p style="font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: #64748b" data-i18n="partner_with">In Partnerschaft mit</p>
+<img src="logo-stiftungsfamilie-bsw-ewh.png" alt="Stiftungsfamilie BSW &amp; EWH" style="display: block; height: 64px; width: auto">
+</div>
+</div>
+<div style="position: absolute; bottom: 32px; left: 50%; transform: translateX(-50%); background: rgba(255,255,255,0.5); padding: 8px; border-radius: 9999px; display: flex">
+<svg width="24" height="24" fill="none" stroke="#334155" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg>
+</div>
+</header>
+
+<!-- Details -->
+<section id="details" style="padding: 80px 24px; margin-top: -40px; position: relative">
+<div style="max-width: 1152px; margin: 0 auto">
+<div style="text-align: center; margin-bottom: 32px">
+<h2 style="font-size: 32px; font-weight: 700" data-i18n="ov_title">Der Konzertabend im Überblick</h2>
+</div>
+<div style="display: flex; flex-wrap: wrap; align-items: flex-start; justify-content: space-between; gap: 40px; padding: clamp(24px, 5vw, 48px); border-radius: 24px; background: rgba(255,255,255,0.7); border: 1px solid rgba(255,255,255,0.5); box-shadow: 0 10px 30px -10px rgba(0,0,0,0.1)">
+<div style="flex: 1 1 280px; display: flex; align-items: flex-start; gap: 20px">
+<div style="width: 56px; height: 56px; border-radius: 16px; background: #dbeafe; border: 1px solid #bfdbfe; display: flex; align-items: center; justify-content: center; flex-shrink: 0">
+<svg width="24" height="24" fill="none" stroke="#2563eb" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+</div>
+<div>
+<h3 style="font-size: 20px; font-weight: 600; margin-bottom: 4px" data-i18n="ov_perf">Die Aufführung</h3>
+<p style="color: #475569" data-i18n="ov_date">Donnerstag, 26. November 2026</p>
+<p style="color: #475569" data-i18n="ov_times">Beginn: 18:30 Uhr | Einlass: 18:00 Uhr</p>
+</div>
+</div>
+<div style="flex: 1 1 280px; display: flex; align-items: flex-start; gap: 20px">
+<div style="width: 56px; height: 56px; border-radius: 16px; background: #dbeafe; border: 1px solid #bfdbfe; display: flex; align-items: center; justify-content: center; flex-shrink: 0">
+<svg width="24" height="24" fill="none" stroke="#2563eb" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+</div>
+<div>
+<h3 style="font-size: 20px; font-weight: 600; margin-bottom: 4px" data-i18n="ov_venue">Der Veranstaltungsort</h3>
+<p style="color: #475569">Ev. Christuskirche Oberursel</p>
+<p style="color: #475569">Oberhöchstadter Str. 18 B</p>
+<a href="https://maps.app.goo.gl/ncn62TNHCBLyJsjR9" target="_blank" rel="noopener" style="display: inline-block; margin-top: 8px; font-size: 14px; text-decoration: underline; text-underline-offset: 4px" data-i18n="ov_route">Wegbeschreibung</a>
+</div>
+</div>
+<div style="flex: 1 1 280px; display: flex; align-items: flex-start; gap: 20px">
+<div style="width: 56px; height: 56px; border-radius: 16px; background: #dbeafe; border: 1px solid #bfdbfe; display: flex; align-items: center; justify-content: center; flex-shrink: 0">
+<svg width="24" height="24" fill="none" stroke="#2563eb" viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="3" width="14" height="14" rx="3" stroke-width="1.5"></rect><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M5 11h14M8 21l2-4m6 4l-2-4"></path><circle cx="9" cy="14" r="0.5" stroke-width="1.5"></circle><circle cx="15" cy="14" r="0.5" stroke-width="1.5"></circle></svg>
+</div>
+<div>
+<h3 style="font-size: 20px; font-weight: 600; margin-bottom: 4px" data-i18n="ov_travel">Anreise</h3>
+<p style="color: #475569" data-i18n="ov_travel_text">Sehr gute Erreichbarkeit mit U3 oder S5</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<!-- Program -->
+<section id="program" style="padding: 96px 24px; background: #f8fafc; border-top: 1px solid #dbeafe">
+<div style="max-width: 896px; margin: 0 auto">
+<div style="text-align: center; margin-bottom: 64px">
+<span style="color: #2563eb; font-size: 14px; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase" data-i18n="pr_label">Repertoire</span>
+<h2 style="font-size: clamp(30px, 8vw, 48px); font-weight: 700; margin: 12px 0 24px" data-i18n="pr_title">Konzertprogramm</h2>
+<p data-i18n="pr_intro" style="color: #475569; max-width: 720px; margin: 0 auto; line-height: 1.625">Wir freuen uns sehr, Euch, Eure Familien und Freunde zu einem festlichen Konzertabend in der Evangelischen Christuskirche Oberursel begrüßen zu dürfen. Freut Euch auf ein abwechslungsreiches Programm mit Werken von Bach, Fauré und Ravel sowie bekannten Melodien aus The Polar Express und Frozen. Den stimmungsvollen Abschluss bilden beliebte Weihnachtsklänge von Leroy Anderson.</p>
+</div>
+<ol style="list-style: none; margin: 0; padding: 0; border-top: 2px solid #0f172a">
+<li class="prog-item">
+<span class="prog-num">01</span>
+<div class="prog-main">
+<h4 style="font-size: clamp(22px, 5.5vw, 30px); font-weight: 400; line-height: 1.2; color: #0f172a">Best of Bach</h4>
+<p style="margin-top: 8px; font-size: 13px; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; color: #475569">Brubaker</p>
+</div>
+<button type="button" class="info-btn" aria-label="Informationen zu Best of Bach" aria-expanded="false" aria-controls="info-1"><span class="info-label" data-i18n="info_label">Info</span><span class="info-plus" aria-hidden="true"></span></button>
+<div class="info-panel" id="info-1"><div class="info-inner">
+<p class="info-credit" data-i18n="c1">Johann Sebastian Bach (Arrangement: Jerry Brubaker)</p>
+<p class="info-text" data-i18n="tx1">Zum Auftakt des Abends verschmelzen einige der berühmtesten Melodien der Musikgeschichte zu einem schwungvollen Medley. Der Arrangeur Jerry Brubaker hat bekannte Themen von Johann Sebastian Bach – darunter Auszüge aus den Brandenburgischen Konzerten oder der berühmten Toccata – kunstvoll miteinander verwoben. Ein festlicher und energiegeladener Einstieg, der die zeitlose Strahlkraft der barocken Musik sofort im Raum lebendig werden lässt.</p>
+</div></div>
+</li>
+<li class="prog-item">
+<span class="prog-num">02</span>
+<div class="prog-main">
+<h4 style="font-size: clamp(22px, 5.5vw, 30px); font-weight: 400; line-height: 1.2; color: #0f172a" data-i18n="t2">Air aus Suite Nr. 3</h4>
+<p style="margin-top: 8px; font-size: 13px; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; color: #475569">Bach</p>
+</div>
+<button type="button" class="info-btn" aria-label="Informationen zu Air aus Suite Nr. 3" aria-expanded="false" aria-controls="info-2"><span class="info-label" data-i18n="info_label">Info</span><span class="info-plus" aria-hidden="true"></span></button>
+<div class="info-panel" id="info-2"><div class="info-inner">
+<p class="info-credit">Johann Sebastian Bach</p>
+<p class="info-text" data-i18n="tx2">Nach dem schwungvollen Auftakt folgt einer der wohl innigsten und Ruhe ausstrahlenden Momente der gesamten Klassik. Die „Air“ entstammt Bachs dritter Orchestersuite und besticht durch ihre schwebende, fast schwerelose Melodie über einer gleichmäßig schreitenden Basslinie. Es ist ein Werk zum Innehalten und Durchatmen, das den Kirchenraum mit einer ganz besonderen, friedvollen Wärme füllt.</p>
+</div></div>
+</li>
+<li class="prog-item">
+<span class="prog-num">03</span>
+<div class="prog-main">
+<h4 style="font-size: clamp(22px, 5.5vw, 30px); font-weight: 400; line-height: 1.2; color: #0f172a">Minuetto</h4>
+<p style="margin-top: 8px; font-size: 13px; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; color: #475569">Bolzoni</p>
+</div>
+<button type="button" class="info-btn" aria-label="Informationen zu Minuetto" aria-expanded="false" aria-controls="info-3"><span class="info-label" data-i18n="info_label">Info</span><span class="info-plus" aria-hidden="true"></span></button>
+<div class="info-panel" id="info-3"><div class="info-inner">
+<p class="info-credit">Giovanni Bolzoni</p>
+<p class="info-text" data-i18n="tx3">Der italienische Komponist und Dirigent Giovanni Bolzoni schuf dieses charmante Werk im späten 19. Jahrhundert als liebevolle Hommage an die höfische Eleganz des 18. Jahrhunderts. Das Menuett verzaubert durch seine tänzerische Leichtigkeit, feine Anmut und einen Hauch italienischer Gesanglichkeit. Man kann sich beim Zuhören förmlich einen historischen Ballsaal im Kerzenschein vorstellen.</p>
+</div></div>
+</li>
+<li class="prog-item">
+<span class="prog-num">04</span>
+<div class="prog-main">
+<h4 style="font-size: clamp(22px, 5.5vw, 30px); font-weight: 400; line-height: 1.2; color: #0f172a">Après un rêve</h4>
+<p style="margin-top: 8px; font-size: 13px; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; color: #475569">Fauré</p>
+</div>
+<button type="button" class="info-btn" aria-label="Informationen zu Après un rêve" aria-expanded="false" aria-controls="info-4"><span class="info-label" data-i18n="info_label">Info</span><span class="info-plus" aria-hidden="true"></span></button>
+<div class="info-panel" id="info-4"><div class="info-inner">
+<p class="info-credit" data-i18n="c4">Gabriel Fauré (Arrangement für Kammerorchester)</p>
+<p class="info-text" data-i18n="tx4">„Nach einem Traum“ – ursprünglich im Jahr 1877 als Kunstlied für Singstimme und Klavier komponiert, gehört dieses Stück zu den schönsten Perlen der französischen Spätromantik. Die Musik erzählt von einem traumhaften, glückseligen Flug zweier Liebender, auf den das wehmütige Erwachen in der Realität folgt. Die weit geschwungene, tief berührende Melodie entwickelt eine sanfte Melancholie, die unmittelbar unter die Haut geht. Im Konzert erklingt das Stück in einem Arrangement für Kammerorchester.</p>
+</div></div>
+</li>
+<li class="prog-item">
+<span class="prog-num">05</span>
+<div class="prog-main">
+<h4 style="font-size: clamp(22px, 5.5vw, 30px); font-weight: 400; line-height: 1.2; color: #0f172a" data-i18n="t5">Ma mère l'Oye (Ausschnitte)</h4>
+<p style="margin-top: 8px; font-size: 13px; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; color: #475569">Ravel</p>
+<div style="margin-top: 14px; padding-left: 16px; border-left: 1px solid #cbd5e1; color: #475569; font-size: 15px; line-height: 1.7">
+<p>I. Pavane de la Belle au bois dormant</p>
+<p data-i18n="r2">II. Le Jardin féerique (mit Übergang)</p>
+</div>
+</div>
+<button type="button" class="info-btn" aria-label="Informationen zu Ma mère l&#x27;Oye (Ausschnitte)" aria-expanded="false" aria-controls="info-5"><span class="info-label" data-i18n="info_label">Info</span><span class="info-plus" aria-hidden="true"></span></button>
+<div class="info-panel" id="info-5"><div class="info-inner">
+<p class="info-credit">Maurice Ravel</p>
+<p class="info-sub" data-i18n="rv1">I. Pavane de la Belle au bois dormant (Pavane von Dornröschen)</p>
+<p class="info-sub" data-i18n="rv2">II. Le Jardin féerique (Der Feengarten – mit Übergang)</p>
+<p class="info-text" data-i18n="tx5">Mit seiner Suite „Mutter Gans“ entführt uns Maurice Ravel direkt in die zauberhafte Welt der französischen Märchen. Das Werk beginnt mit einer zarten, verträumten Miniatur, die den friedlichen Schlaf von Dornröschen in schimmernden Klangfarben zeichnet. Über eine geheimnisvolle Überleitung öffnet sich schließlich das Tor zum „Feengarten“: Die Musik wächst von einem sanften Flüstern zu einem strahlenden, majestätischen Klanggebäude heran, das wie ein funkelndes Lichtermeer den Weg in die zweite Hälfte des Programms ebnet.</p>
+</div></div>
+</li>
+<li class="prog-item">
+<span class="prog-num">06</span>
+<div class="prog-main">
+<h4 style="font-size: clamp(22px, 5.5vw, 30px); font-weight: 400; line-height: 1.2; color: #0f172a">Polar Express</h4>
+<p style="margin-top: 8px; font-size: 13px; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; color: #475569">Silvestri</p>
+</div>
+<button type="button" class="info-btn" aria-label="Informationen zu Polar Express" aria-expanded="false" aria-controls="info-6"><span class="info-label" data-i18n="info_label">Info</span><span class="info-plus" aria-hidden="true"></span></button>
+<div class="info-panel" id="info-6"><div class="info-inner">
+<p class="info-credit">Alan Silvestri</p>
+<p class="info-text" data-i18n="tx6">Bitte einsteigen! Mit der Musik zum bekannten Weihnachtsfilm „Der Polarexpress“ beginnt eine magische Zugreise mitten durch die verschneite Winternacht bis zum Nordpol. Komponist Alan Silvestri fängt das rhythmische Stampfen der Dampflokomotive ebenso brillant ein wie das kindliche Staunen und den warmen Zauber der Weihnachtszeit. Ein mitreißendes Stück Kino für die Ohren – und natürlich ein heimliches Heimspiel für das DB Orchester!</p>
+</div></div>
+</li>
+<li class="prog-item">
+<span class="prog-num">07</span>
+<div class="prog-main">
+<h4 style="font-size: clamp(22px, 5.5vw, 30px); font-weight: 400; line-height: 1.2; color: #0f172a">Music from Frozen</h4>
+<p style="margin-top: 8px; font-size: 13px; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; color: #475569">Lopez</p>
+</div>
+<button type="button" class="info-btn" aria-label="Informationen zu Music from Frozen" aria-expanded="false" aria-controls="info-7"><span class="info-label" data-i18n="info_label">Info</span><span class="info-plus" aria-hidden="true"></span></button>
+<div class="info-panel" id="info-7"><div class="info-inner">
+<p class="info-credit">Kristen Anderson-Lopez &amp; Robert Lopez</p>
+<p class="info-text" data-i18n="tx7">Spätestens mit Disneys „Die Eiskönigin“ hält der glitzernde Winter Einzug. Das Ehepaar Lopez schuf für das moderne Wintermärchen rund um die Schwestern Anna und Elsa sowie den gut gelaunten Schneemann Olaf Melodien, die heute auf der ganzen Welt mitgesungen werden. Von verspielten, humorvollen Rhythmen bis hin zur großen, emotionalen Hymne „Let It Go“ (Lass jetzt los) bringt dieses Medley große Broadway-Atmosphäre und glitzernden Eiszauber in das Konzert.</p>
+</div></div>
+</li>
+<li class="prog-item">
+<span class="prog-num">08</span>
+<div class="prog-main">
+<h4 style="font-size: clamp(22px, 5.5vw, 30px); font-weight: 400; line-height: 1.2; color: #0f172a">A Christmas Festival</h4>
+<p style="margin-top: 8px; font-size: 13px; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; color: #475569">Anderson</p>
+</div>
+<button type="button" class="info-btn" aria-label="Informationen zu A Christmas Festival" aria-expanded="false" aria-controls="info-8"><span class="info-label" data-i18n="info_label">Info</span><span class="info-plus" aria-hidden="true"></span></button>
+<div class="info-panel" id="info-8"><div class="info-inner">
+<p class="info-credit">Leroy Anderson</p>
+<p class="info-text" data-i18n="tx8">Als krönenden Abschluss zündet das Orchester ein wahres musikalisches Weihnachtsfeuerwerk. Der amerikanische Komponist Leroy Anderson – weltbekannt durch seinen Klassiker „Sleigh Ride“ – hat in dieser festlichen Konzertouvertüre die beliebtesten traditionellen Weihnachtslieder (wie „Joy to the World“, „Jingle Bells“ oder „Stille Nacht“) zu einem glanzvollen Gesamtkunstwerk verbunden. Ein schwungvolles, strahlendes Finale, das Sie garantiert mit festlicher Vorfreude in den Abend entlässt!</p>
+</div></div>
+</li>
+</ol>
+</div>
+</section>
+
+<!-- About -->
+<section id="about" style="padding: 96px 24px; background: #f1f5f9; position: relative; overflow: hidden">
+<div style="position: absolute; top: 0; left: 0; width: 384px; height: 384px; background: rgba(147,197,253,0.3); border-radius: 9999px; filter: blur(100px); pointer-events: none"></div>
+<div style="position: absolute; bottom: 0; right: 0; width: 384px; height: 384px; background: rgba(103,232,249,0.3); border-radius: 9999px; filter: blur(100px); pointer-events: none"></div>
+<div style="position: relative; max-width: 1152px; margin: 0 auto; display: flex; flex-wrap: wrap; align-items: center; gap: 64px">
+<div style="flex: 1 1 380px; display: flex; flex-direction: column; gap: 24px">
+<span style="color: #2563eb; font-size: 14px; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase" data-i18n="ab_label">Das Ensemble</span>
+<h2 style="font-size: clamp(30px, 8vw, 48px); font-weight: 700" data-i18n="ab_title">Über das DB Orchester</h2>
+<p data-i18n="ab_p1" style="font-size: 18px; color: #475569; line-height: 1.625">Je nach Projekt finden sich beim Kammerorchester etwa 25, beim Sinfonieorchester 50 Musiker:innen zusammen, um ein neues Programm zu erarbeiten und schließlich in einem Konzert das Ergebnis musikalisch darzubieten.</p>
+<p data-i18n="ab_p2" style="font-size: 18px; color: #475569; line-height: 1.625">Das Orchester setzt sich aus Kolleginnen und Kollegen aus verschiedenen Geschäftsfeldern zusammen. Wir proben in unserer Freizeit und spielen ungefähr ein bis zwei Mal im Jahr. Manchmal unterstützen wir auch soziale Zwecke und geben Benefizkonzerte.</p>
+</div>
+<figure style="flex: 1 1 380px; min-width: 0; margin: 0">
+<div style="border-radius: 24px; overflow: hidden; box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1); border: 1px solid #e2e8f0">
+<img data-i18n-alt="ab_alt" src="patrick-chirilus-bruckner.jpg" alt="Patrick Chirilus-Bruckner, Gründer und Dirigent des DB Orchesters, mit Taktstock" style="display: block; width: 100%; aspect-ratio: 4 / 5; object-fit: cover; object-position: 52% 20%">
+</div>
+<figcaption style="margin-top: 14px; font-size: 14px; line-height: 1.5; color: #475569"><span style="font-weight: 600; color: #0f172a">Patrick Chirilus-Bruckner</span><br><span data-i18n="ab_role">Gründer und Dirigent des DB Orchesters</span></figcaption>
+</figure>
+</div>
+</section>
+
+<!-- Mitspielen -->
+<section id="mitspielen" style="padding: clamp(56px, 9vw, 88px) 24px; background: #1e3a8a; color: #ffffff; text-align: center">
+<div style="max-width: 720px; margin: 0 auto; display: flex; flex-direction: column; align-items: center; gap: 20px">
+<span style="color: #bfdbfe; font-size: 14px; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase" data-i18n="nav_join">Mitspielen</span>
+<h2 style="font-size: clamp(28px, 7vw, 44px); font-weight: 700; line-height: 1.15; color: #ffffff" data-i18n="jo_title">Spielst du ein Instrument? Spiel mit uns!</h2>
+<p data-i18n="jo_text" style="font-size: clamp(16px, 4.2vw, 18px); line-height: 1.625; color: #dbeafe">Alle Gäste, die selbst ein Instrument spielen, sind herzlich eingeladen, in unserem Ensemble mitzuspielen – ganz gleich, welches Instrument. Besonders freuen wir uns über Streicherinnen und Streicher. Schreib uns einfach eine kurze E-Mail, wir melden uns bei dir. Mitspielen kann jede und jeder.</p>
+<a href="mailto:musik.ensembles@deutschebahn.com?subject=Mitspielen%20im%20DB%20Orchester" style="margin-top: 8px; display: inline-block; padding: 16px clamp(24px, 5vw, 36px); background: #ffffff; color: #1e3a8a; font-weight: 600; border-radius: 9999px; text-decoration: none; box-shadow: 0 10px 15px -3px rgba(0,0,0,0.25)" data-i18n="jo_btn">Per E-Mail melden</a>
+</div>
+</section>
+
+<!-- Footer -->
+<footer id="tickets" style="background: #0f172a; border-top: 1px solid #1e293b; padding: 64px 24px; text-align: center">
+<div style="max-width: 672px; margin: 0 auto; display: flex; flex-direction: column; gap: 32px">
+<h2 style="font-size: clamp(24px, 6vw, 30px); font-weight: 700; color: #ffffff" data-i18n="ft_title">Begleiten Sie uns für einen unvergesslichen Abend.</h2>
+<div>
+<div style="display: inline-flex; align-items: stretch; background: #2563eb; border-radius: 9999px; box-shadow: 0 10px 15px -3px rgba(59,130,246,0.25); overflow: hidden">
+<a href="https://dbsw.sharepoint.com/:l:/t/DBEnsemblesFrankfurt/JAAYookm6mVxRoLatcVW9x_4AVlQhfe-wTzle7Z3K9kckSQ?nav=MTg5ZTMyMzEtNzZjYy00ZDU1LWIwNjctMzUzMWI5NDFkZGY0" target="_blank" rel="noopener" style="display: inline-block; padding: 16px clamp(18px, 4vw, 32px); color: #ffffff; font-weight: 600; font-family: 'Inter', sans-serif; font-size: 16px; text-decoration: none" data-i18n="btn_reserve">Plätze reservieren</a>
+<span style="width: 1px; background: rgba(255,255,255,0.4); margin: 12px 0"></span>
+<a href="https://dbsw.sharepoint.com/:l:/t/DBEnsemblesFrankfurt/JAAYookm6mVxRoLatcVW9x_4AVlQhfe-wTzle7Z3K9kckSQ?nav=MTg5ZTMyMzEtNzZjYy00ZDU1LWIwNjctMzUzMWI5NDFkZGY0" target="_blank" rel="noopener" style="display: inline-block; padding: 16px clamp(18px, 4vw, 32px); color: #ffffff; font-weight: 500; font-family: 'Inter', sans-serif; font-size: 16px; text-decoration: none" data-i18n="btn_cancel">stornieren</a>
+</div>
+</div>
+<p class="ft-note" data-i18n="ft_note" style="color: #94a3b8; font-size: 14px; line-height: 1.6">Der Anmeldelink funktioniert nur für DB-Mitarbeitende. Alle anderen reservieren oder stornieren Plätze bitte per E-Mail – ebenso bei Fragen zum Konzert: <a href="mailto:musik.ensembles@deutschebahn.com" style="color: #ffffff; text-decoration: underline; text-underline-offset: 4px">musik.ensembles@deutschebahn.com</a></p>
+<p class="ft-join" data-i18n="ft_join" style="color: #94a3b8; font-size: 14px; line-height: 1.6">Du spielst selbst ein Instrument? <a href="#mitspielen" style="color: #ffffff; text-decoration: underline; text-underline-offset: 4px">Spiel mit uns!</a></p>
+<div style="display: flex; flex-direction: column; align-items: center; gap: 12px">
+<p style="font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase; color: #94a3b8" data-i18n="ft_partner">Das Konzert findet in Partnerschaft mit der Stiftungsfamilie BSW &amp; EWH statt.</p>
+<div style="background: #ffffff; border-radius: 16px; padding: 12px 20px; display: inline-flex">
+<img src="logo-stiftungsfamilie-bsw-ewh.png" alt="Stiftungsfamilie BSW &amp; EWH" style="display: block; height: 56px; width: auto">
+</div>
+</div>
+<div style="padding-top: 64px; border-top: 1px solid #1e293b; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px; font-size: 14px; color: #64748b">
+<p data-i18n="ft_copy">© 2026 DB Orchester. Alle Rechte vorbehalten.</p>
+</div>
+</div>
+</footer>
+
+</div>
+<script>
+(function () {
+  var b = document.getElementById('nav-toggle'), p = document.getElementById('nav-panel'), i = document.getElementById('nav-icon');
+  function set(o) {
+    p.hidden = !o;
+    b.setAttribute('aria-expanded', o ? 'true' : 'false');
+    i.setAttribute('d', o ? 'M6 6l12 12M18 6L6 18' : 'M4 7h16M4 12h16M4 17h16');
+  }
+  b.addEventListener('click', function () { set(p.hidden); });
+  p.addEventListener('click', function (e) { if (e.target.closest('a')) set(false); });
+})();
+(function () {
+  document.querySelectorAll('.info-btn').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var panel = document.getElementById(btn.getAttribute('aria-controls'));
+      var open = btn.getAttribute('aria-expanded') === 'true';
+      btn.setAttribute('aria-expanded', open ? 'false' : 'true');
+      panel.classList.toggle('open', !open);
+    });
+  });
+})();
+(function () {
+  /* Schneeeffekt beim Öffnen der Seite – Dauer in Millisekunden anpassbar */
+  var SPAWN = 2500;      /* so lange kommen neue Flocken nach */
+  var FADE_START = 3000; /* ab hier blendet der Schnee aus */
+  var END = 4800;        /* hier ist der Effekt komplett vorbei */
+  if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  var c = document.createElement('canvas');
+  c.setAttribute('aria-hidden', 'true');
+  c.style.cssText = 'position:fixed;left:0;top:0;width:100%;height:100%;pointer-events:none;z-index:100';
+  document.body.appendChild(c);
+  var ctx = c.getContext('2d'), w = 0, h = 0, flakes = [], acc = 0, t0 = null, last = null, raf = 0;
+
+  /* weiche Schneeflocke (Punkt) einmal vorzeichnen */
+  var sprite = document.createElement('canvas');
+  sprite.width = sprite.height = 64;
+  var sc = sprite.getContext('2d');
+  var g = sc.createRadialGradient(32, 32, 0, 32, 32, 32);
+  g.addColorStop(0, 'rgba(255,255,255,1)');
+  g.addColorStop(0.35, 'rgba(238,245,255,0.95)');
+  g.addColorStop(0.7, 'rgba(205,222,245,0.45)');
+  g.addColorStop(1, 'rgba(190,210,240,0)');
+  sc.fillStyle = g;
+  sc.fillRect(0, 0, 64, 64);
+
+  function size() {
+    var dpr = Math.min(window.devicePixelRatio || 1, 2);
+    w = window.innerWidth; h = window.innerHeight;
+    c.width = w * dpr; c.height = h * dpr;
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  }
+  function make(y) {
+    var crystal = Math.random() < 0.3;
+    var r = crystal ? 4 + Math.random() * 3 : 1.4 + Math.random() * 3;
+    return { x0: Math.random() * w, y: y, r: r, crystal: crystal,
+             vy: 30 + r * 14 + Math.random() * 40,
+             amp: 8 + Math.random() * 22, ph: Math.random() * 6.283, fr: 0.7 + Math.random() * 1.1,
+             rot: Math.random() * 6.283, spin: (Math.random() - 0.5) * 1.2,
+             a: 0.8 + Math.random() * 0.2 };
+  }
+  function crystal(x, y, L, rot) {
+    ctx.save();
+    ctx.translate(x, y);
+    ctx.rotate(rot);
+    ctx.beginPath();
+    for (var i = 0; i < 6; i++) {
+      ctx.moveTo(0, 0); ctx.lineTo(0, -L);
+      ctx.moveTo(0, -L * 0.55); ctx.lineTo(L * 0.28, -L * 0.82);
+      ctx.moveTo(0, -L * 0.55); ctx.lineTo(-L * 0.28, -L * 0.82);
+      ctx.rotate(Math.PI / 3);
+    }
+    ctx.stroke();
+    ctx.restore();
+  }
+  size();
+  window.addEventListener('resize', size);
+  var rate = Math.max(45, Math.min(120, w / 11));
+  for (var i = 0; i < 35; i++) flakes.push(make(Math.random() * h * 0.45));
+  function stop() {
+    cancelAnimationFrame(raf);
+    window.removeEventListener('resize', size);
+    if (c.parentNode) c.parentNode.removeChild(c);
+  }
+  function frame(ts) {
+    if (t0 === null) { t0 = ts; last = ts; }
+    var el = ts - t0, dt = Math.min((ts - last) / 1000, 0.05);
+    last = ts;
+    if (el >= END) { stop(); return; }
+    if (el < SPAWN) {
+      acc += rate * dt;
+      while (acc >= 1) { flakes.push(make(-12)); acc -= 1; }
+    }
+    var fade = el < FADE_START ? 1 : Math.max(0, 1 - (el - FADE_START) / (END - FADE_START));
+    ctx.clearRect(0, 0, w, h);
+    ctx.strokeStyle = 'rgba(105,145,200,0.95)';
+    ctx.lineCap = 'round';
+    for (var k = 0; k < flakes.length; k++) {
+      var f = flakes[k];
+      f.y += f.vy * dt;
+      f.rot += f.spin * dt;
+      var x = f.x0 + Math.sin(f.ph + (el / 1000) * f.fr) * f.amp;
+      ctx.globalAlpha = fade * f.a;
+      if (f.crystal) {
+        ctx.lineWidth = 1.1;
+        crystal(x, f.y, f.r, f.rot);
+      } else {
+        var d = f.r * 2.4;
+        ctx.drawImage(sprite, x - d, f.y - d, d * 2, d * 2);
+      }
+    }
+    ctx.globalAlpha = 1;
+    raf = requestAnimationFrame(frame);
+  }
+  raf = requestAnimationFrame(frame);
+})();
+</script>
+<script>
+(function () {
+  var M = "<a href='mailto:musik.ensembles@deutschebahn.com'>musik.ensembles@deutschebahn.com</a>";
+  function J(t) { return "<a href='#mitspielen'>" + t + "</a>"; }
+  var I18N = {};
+
+  I18N.en = {
+    nav_overview: "Overview", nav_program: "Programme", nav_ensemble: "Ensemble", nav_join: "Join in", nav_contact: "Contact",
+    aria_nav: "Main navigation", aria_menu: "Menu", aria_lang: "Language", info_aria: "Information about {t}",
+    btn_reserve: "Reserve seats", reserve_short: "Reserve", btn_cancel: "cancel", btn_program: "View programme",
+    hero_presents: "The DB Orchestra presents",
+    hero_sub: "A festive concert evening at the Evangelische Christuskirche Oberursel – featuring works by Bach, Fauré and Ravel, as well as well-known melodies from The Polar Express and Frozen.",
+    hero_note: "The registration link only works for DB employees. Everyone else, please reserve or cancel seats by email at " + M + ".",
+    partner_with: "In partnership with",
+    ov_title: "The Concert Evening at a Glance", ov_perf: "The Performance", ov_date: "Thursday, 26 November 2026",
+    ov_times: "Start: 18:30 | Doors open: 18:00", ov_venue: "The Venue", ov_route: "Directions", ov_travel: "Getting there",
+    ov_travel_text: "Excellent connections by U3 or S5",
+    pr_label: "Repertoire", pr_title: "Concert Programme",
+    pr_intro: "We are delighted to welcome you, your families and friends to a festive concert evening at the Evangelische Christuskirche Oberursel. Look forward to a varied programme with works by Bach, Fauré and Ravel, as well as well-known melodies from The Polar Express and Frozen. Popular Christmas favourites by Leroy Anderson round off the evening in festive style.",
+    t2: "Air from Suite No. 3", t5: "Ma mère l'Oye (excerpts)", r2: "II. Le Jardin féerique (with transition)", info_label: "Info",
+    c1: "Johann Sebastian Bach (arranged by Jerry Brubaker)", c4: "Gabriel Fauré (arranged for chamber orchestra)",
+    rv1: "I. Pavane de la Belle au bois dormant (Pavane for Sleeping Beauty)", rv2: "II. Le Jardin féerique (The Fairy Garden – with transition)",
+    tx1: "To open the evening, some of the most famous melodies in music history blend into a spirited medley. Arranger Jerry Brubaker has artfully woven together well-known themes by Johann Sebastian Bach – including excerpts from the Brandenburg Concertos and the famous Toccata. A festive, high-energy start that immediately brings the timeless radiance of Baroque music to life in the room.",
+    tx2: "After the lively opening comes one of the most heartfelt and serene moments in all of classical music. The “Air” comes from Bach's third orchestral suite and captivates with its floating, almost weightless melody above a steadily striding bass line. It is a piece for pausing and taking a breath, filling the church with a very special, peaceful warmth.",
+    tx3: "The Italian composer and conductor Giovanni Bolzoni wrote this charming piece in the late 19th century as a loving homage to the courtly elegance of the 18th century. The minuet enchants with its dancing lightness, delicate grace and a touch of Italian lyricism. Listening, you can almost picture a historic ballroom by candlelight.",
+    tx4: "“After a Dream” – originally composed in 1877 as an art song for voice and piano, this piece is among the finest pearls of French late Romanticism. The music tells of a dreamlike, blissful flight of two lovers, followed by the wistful awakening in reality. The broad, deeply moving melody develops a gentle melancholy that goes straight to the heart. In the concert, the piece is heard in an arrangement for chamber orchestra.",
+    tx5: "With his suite “Mother Goose”, Maurice Ravel whisks us straight into the enchanting world of French fairy tales. The work begins with a delicate, dreamy miniature that paints the peaceful sleep of Sleeping Beauty in shimmering tone colours. Through a mysterious transition, the gate to the “Fairy Garden” finally opens: the music grows from a gentle whisper into a radiant, majestic edifice of sound that, like a sparkling sea of lights, paves the way into the second half of the programme.",
+    tx6: "All aboard! With the music from the well-known Christmas film “The Polar Express”, a magical train journey begins through the snowy winter night all the way to the North Pole. Composer Alan Silvestri captures the rhythmic chugging of the steam locomotive as brilliantly as the childlike wonder and warm magic of the Christmas season. A rousing piece of cinema for the ears – and of course a secret home game for the DB Orchestra!",
+    tx7: "With Disney's “Frozen”, the glittering winter arrives at last. The couple Lopez created melodies for the modern winter fairy tale about sisters Anna and Elsa and the good-humoured snowman Olaf that are now sung along to all over the world. From playful, humorous rhythms to the grand, emotional anthem “Let It Go”, this medley brings great Broadway atmosphere and glittering ice magic to the concert.",
+    tx8: "As a crowning finale, the orchestra sets off a veritable musical Christmas fireworks display. American composer Leroy Anderson – world-famous for his classic “Sleigh Ride” – has combined the most beloved traditional Christmas carols (such as “Joy to the World”, “Jingle Bells” or “Silent Night”) in this festive concert overture into a dazzling whole. A lively, radiant finale that is sure to send you off into the evening with festive anticipation!",
+    ab_label: "The Ensemble", ab_title: "About the DB Orchestra",
+    ab_p1: "Depending on the project, around 25 musicians come together in the chamber orchestra and 50 in the symphony orchestra to work up a new programme and finally present the result in concert.",
+    ab_p2: "The orchestra is made up of colleagues from various business areas. We rehearse in our free time and perform about once or twice a year. Sometimes we also support charitable causes and give benefit concerts.",
+    ab_role: "Founder and conductor of the DB Orchestra", ab_alt: "Patrick Chirilus-Bruckner, founder and conductor of the DB Orchestra, holding a baton",
+    jo_title: "Do you play an instrument? Play with us!",
+    jo_text: "All guests who play an instrument themselves are warmly invited to play in our ensemble – whatever the instrument. We are especially keen to hear from string players. Just send us a short email and we will get back to you. Anyone can join in.",
+    jo_btn: "Get in touch by email",
+    ft_title: "Join us for an unforgettable evening.",
+    ft_note: "The registration link only works for DB employees. Everyone else, please reserve or cancel seats by email – and get in touch with any questions about the concert: " + M,
+    ft_join: "Do you play an instrument yourself? " + J("Play with us!"),
+    ft_partner: "The concert takes place in partnership with the Stiftungsfamilie BSW &amp; EWH.",
+    ft_copy: "© 2026 DB Orchestra. All rights reserved."
+  };
+
+  I18N.fr = {
+    nav_overview: "Aperçu", nav_program: "Programme", nav_ensemble: "Ensemble", nav_join: "Jouer avec nous", nav_contact: "Contact",
+    aria_nav: "Navigation principale", aria_menu: "Menu", aria_lang: "Langue", info_aria: "Informations sur {t}",
+    btn_reserve: "Réserver des places", reserve_short: "Réserver", btn_cancel: "annuler", btn_program: "Voir le programme",
+    hero_presents: "L'Orchestre DB présente",
+    hero_sub: "Une soirée de concert festive à l'Evangelische Christuskirche d'Oberursel – avec des œuvres de Bach, Fauré et Ravel, ainsi que des mélodies connues de The Polar Express et de Frozen.",
+    hero_note: "Le lien d'inscription ne fonctionne que pour les collaborateurs de DB. Toutes les autres personnes sont priées de réserver ou d'annuler leurs places par e-mail à " + M + ".",
+    partner_with: "En partenariat avec",
+    ov_title: "La soirée en un coup d'œil", ov_perf: "Le concert", ov_date: "Jeudi 26 novembre 2026",
+    ov_times: "Début : 18 h 30 | Ouverture des portes : 18 h 00", ov_venue: "Le lieu", ov_route: "Itinéraire", ov_travel: "Accès",
+    ov_travel_text: "Très bien desservi par la U3 ou la S5",
+    pr_label: "Répertoire", pr_title: "Programme du concert",
+    pr_intro: "Nous sommes très heureux de vous accueillir, vous, vos familles et vos amis, pour une soirée de concert festive à l'Evangelische Christuskirche d'Oberursel. Réjouissez-vous d'un programme varié avec des œuvres de Bach, Fauré et Ravel, ainsi que des mélodies connues de The Polar Express et de Frozen. De célèbres airs de Noël de Leroy Anderson concluent la soirée dans une atmosphère chaleureuse.",
+    t2: "Air de la Suite n° 3", t5: "Ma mère l'Oye (extraits)", r2: "II. Le Jardin féerique (avec transition)", info_label: "Info",
+    c1: "Johann Sebastian Bach (arrangement : Jerry Brubaker)", c4: "Gabriel Fauré (arrangement pour orchestre de chambre)",
+    rv1: "I. Pavane de la Belle au bois dormant", rv2: "II. Le Jardin féerique (avec transition)",
+    tx1: "Pour ouvrir la soirée, quelques-unes des mélodies les plus célèbres de l'histoire de la musique se fondent en un pot-pourri plein d'entrain. L'arrangeur Jerry Brubaker a entrelacé avec art des thèmes bien connus de Johann Sebastian Bach – notamment des extraits des Concertos brandebourgeois ou de la célèbre Toccata. Une entrée en matière festive et pleine d'énergie, qui fait aussitôt revivre dans la salle l'éclat intemporel de la musique baroque.",
+    tx2: "Après l'ouverture entraînante vient l'un des moments les plus intimes et les plus apaisants de tout le répertoire classique. L'« Air » est tiré de la troisième suite pour orchestre de Bach et séduit par sa mélodie flottante, presque en apesanteur, au-dessus d'une ligne de basse qui avance d'un pas régulier. Une œuvre pour faire une pause et reprendre son souffle, qui emplit l'église d'une chaleur paisible et singulière.",
+    tx3: "Le compositeur et chef d'orchestre italien Giovanni Bolzoni a écrit cette œuvre charmante à la fin du XIXe siècle, en un hommage affectueux à l'élégance de cour du XVIIIe siècle. Le menuet séduit par sa légèreté dansante, sa grâce délicate et une touche de lyrisme italien. En l'écoutant, on s'imagine presque une salle de bal d'autrefois, éclairée à la chandelle.",
+    tx4: "« Après un rêve » – composé à l'origine en 1877 comme mélodie pour voix et piano, ce morceau compte parmi les plus belles perles du postromantisme français. La musique raconte le vol rêveur et bienheureux de deux amants, suivi d'un réveil mélancolique dans la réalité. L'ample mélodie, profondément émouvante, déploie une douce mélancolie qui touche droit au cœur. Lors du concert, la pièce est donnée dans un arrangement pour orchestre de chambre.",
+    tx5: "Avec sa suite « Ma mère l'Oye », Maurice Ravel nous emmène directement dans l'univers enchanté des contes français. L'œuvre s'ouvre sur une miniature délicate et rêveuse qui dépeint, en couleurs chatoyantes, le sommeil paisible de la Belle au bois dormant. Par un mystérieux passage, la porte du « Jardin féerique » s'ouvre enfin : la musique grandit d'un doux murmure jusqu'à un édifice sonore rayonnant et majestueux qui, comme une mer de lumières scintillantes, ouvre la voie à la seconde partie du programme.",
+    tx6: "Tout le monde à bord ! Avec la musique du célèbre film de Noël « Le Pôle Express », commence un voyage féerique en train à travers la nuit d'hiver enneigée jusqu'au pôle Nord. Le compositeur Alan Silvestri restitue avec brio le halètement rythmé de la locomotive à vapeur, tout autant que l'émerveillement enfantin et la douce magie de Noël. Un morceau de cinéma entraînant pour les oreilles – et bien sûr un match à domicile discret pour l'Orchestre DB !",
+    tx7: "Avec « La Reine des neiges » de Disney, l'hiver scintillant fait enfin son entrée. Le couple Lopez a composé pour ce conte d'hiver moderne, consacré aux sœurs Anna et Elsa et au bonhomme de neige joyeux Olaf, des mélodies que le monde entier chante aujourd'hui. Des rythmes enjoués et pleins d'humour jusqu'au grand hymne émouvant « Libérée, délivrée » (« Let It Go »), ce pot-pourri apporte au concert toute l'ambiance de Broadway et une magie glacée étincelante.",
+    tx8: "En apothéose, l'orchestre déclenche un véritable feu d'artifice musical de Noël. Le compositeur américain Leroy Anderson – mondialement connu pour son classique « Sleigh Ride » – a réuni dans cette ouverture de concert festive les chants de Noël traditionnels les plus aimés (comme « Joy to the World », « Jingle Bells » ou « Douce nuit ») en une œuvre éclatante. Un finale entraînant et rayonnant qui vous accompagnera, c'est certain, avec une joyeuse impatience des fêtes !",
+    ab_label: "L'ensemble", ab_title: "À propos de l'Orchestre DB",
+    ab_p1: "Selon le projet, environ 25 musiciennes et musiciens se retrouvent pour l'orchestre de chambre, et 50 pour l'orchestre symphonique, afin de préparer un nouveau programme et d'en présenter le résultat en concert.",
+    ab_p2: "L'orchestre réunit des collègues issus de différents secteurs d'activité. Nous répétons sur notre temps libre et jouons environ une à deux fois par an. Il nous arrive aussi de soutenir des causes sociales et de donner des concerts de bienfaisance.",
+    ab_role: "Fondateur et chef d'orchestre de l'Orchestre DB", ab_alt: "Patrick Chirilus-Bruckner, fondateur et chef d'orchestre de l'Orchestre DB, avec sa baguette",
+    jo_title: "Vous jouez d'un instrument ? Jouez avec nous !",
+    jo_text: "Tous les invités qui jouent eux-mêmes d'un instrument sont chaleureusement invités à jouer dans notre ensemble – quel que soit l'instrument. Nous serions particulièrement heureux d'accueillir des cordes. Écrivez-nous simplement un court e-mail, nous vous répondrons. Tout le monde peut participer.",
+    jo_btn: "Écrire par e-mail",
+    ft_title: "Accompagnez-nous pour une soirée inoubliable.",
+    ft_note: "Le lien d'inscription ne fonctionne que pour les collaborateurs de DB. Tous les autres sont priés de réserver ou d'annuler leurs places par e-mail – de même pour toute question sur le concert : " + M,
+    ft_join: "Vous jouez vous-même d'un instrument ? " + J("Jouez avec nous !"),
+    ft_partner: "Le concert a lieu en partenariat avec la Stiftungsfamilie BSW &amp; EWH.",
+    ft_copy: "© 2026 Orchestre DB. Tous droits réservés."
+  };
+
+  I18N.es = {
+    nav_overview: "Resumen", nav_program: "Programa", nav_ensemble: "Conjunto", nav_join: "Participa", nav_contact: "Contacto",
+    aria_nav: "Navegación principal", aria_menu: "Menú", aria_lang: "Idioma", info_aria: "Información sobre {t}",
+    btn_reserve: "Reservar plazas", reserve_short: "Reservar", btn_cancel: "cancelar", btn_program: "Ver el programa",
+    hero_presents: "La Orquesta DB presenta",
+    hero_sub: "Una festiva velada de concierto en la Evangelische Christuskirche de Oberursel, con obras de Bach, Fauré y Ravel, así como conocidas melodías de The Polar Express y Frozen.",
+    hero_note: "El enlace de inscripción solo funciona para empleados de DB. Todas las demás personas deben reservar o cancelar sus plazas por correo electrónico en " + M + ".",
+    partner_with: "En colaboración con",
+    ov_title: "La velada de un vistazo", ov_perf: "El concierto", ov_date: "Jueves, 26 de noviembre de 2026",
+    ov_times: "Comienzo: 18:30 h | Apertura de puertas: 18:00 h", ov_venue: "El lugar", ov_route: "Cómo llegar", ov_travel: "Acceso",
+    ov_travel_text: "Muy bien comunicado con la U3 o la S5",
+    pr_label: "Repertorio", pr_title: "Programa del concierto",
+    pr_intro: "Nos alegra mucho poder darles la bienvenida a ustedes, a sus familias y amigos, a una festiva velada de concierto en la Evangelische Christuskirche de Oberursel. Disfruten de un programa variado con obras de Bach, Fauré y Ravel, así como conocidas melodías de The Polar Express y Frozen. Populares sonidos navideños de Leroy Anderson ponen el broche final a la velada con mucho ambiente festivo.",
+    t2: "Aire de la Suite n.º 3", t5: "Ma mère l'Oye (fragmentos)", r2: "II. Le Jardin féerique (con transición)", info_label: "Info",
+    c1: "Johann Sebastian Bach (arreglo: Jerry Brubaker)", c4: "Gabriel Fauré (arreglo para orquesta de cámara)",
+    rv1: "I. Pavane de la Belle au bois dormant (Pavana de la Bella Durmiente)", rv2: "II. Le Jardin féerique (El jardín de las hadas, con transición)",
+    tx1: "Para abrir la velada, algunas de las melodías más famosas de la historia de la música se funden en un enérgico popurrí. El arreglista Jerry Brubaker ha entrelazado con maestría conocidos temas de Johann Sebastian Bach, entre ellos fragmentos de los Conciertos de Brandeburgo o de la célebre Tocata. Un comienzo festivo y lleno de energía que hace revivir al instante en la sala el brillo atemporal de la música barroca.",
+    tx2: "Tras el brioso comienzo llega uno de los momentos más íntimos y serenos de todo el repertorio clásico. El «Aire» procede de la tercera suite para orquesta de Bach y cautiva con su melodía flotante, casi ingrávida, sobre una línea de bajo de paso regular. Es una obra para detenerse y respirar hondo, que llena la iglesia de una calidez pacífica muy especial.",
+    tx3: "El compositor y director italiano Giovanni Bolzoni escribió esta encantadora obra a finales del siglo XIX como cariñoso homenaje a la elegancia cortesana del siglo XVIII. El minueto hechiza con su ligereza danzante, su fina gracia y un toque de lirismo italiano. Al escucharlo, casi se puede imaginar un salón de baile de otra época a la luz de las velas.",
+    tx4: "«Después de un sueño», compuesta originalmente en 1877 como canción para voz y piano, es una de las más bellas perlas del posromanticismo francés. La música narra el vuelo onírico y dichoso de dos enamorados, al que sigue el melancólico despertar en la realidad. La amplia y profundamente conmovedora melodía desarrolla una suave melancolía que llega directa al corazón. En el concierto se interpreta en un arreglo para orquesta de cámara.",
+    tx5: "Con su suite «Mamá Oca», Maurice Ravel nos transporta directamente al mágico mundo de los cuentos franceses. La obra comienza con una miniatura delicada y soñadora que retrata en tonos brillantes el plácido sueño de la Bella Durmiente. A través de un misterioso pasaje se abre por fin la puerta del «Jardín de las hadas»: la música crece desde un suave susurro hasta un edificio sonoro radiante y majestuoso que, como un centelleante mar de luces, allana el camino hacia la segunda parte del programa.",
+    tx6: "¡Todos a bordo! Con la música de la conocida película navideña «Polar Express» comienza un mágico viaje en tren por la noche nevada de invierno hasta el Polo Norte. El compositor Alan Silvestri capta con brillantez tanto el rítmico resoplar de la locomotora de vapor como el asombro infantil y la cálida magia de la Navidad. Una pieza de cine para los oídos que arrastra al público, ¡y, por supuesto, un discreto partido en casa para la Orquesta DB!",
+    tx7: "Con «Frozen» de Disney, el invierno reluciente hace por fin su entrada. El matrimonio Lopez creó para este moderno cuento invernal, protagonizado por las hermanas Anna y Elsa y el simpático muñeco de nieve Olaf, melodías que hoy se cantan en todo el mundo. Desde ritmos juguetones y divertidos hasta el gran himno emotivo «Libre soy» («Let It Go»), este popurrí aporta al concierto un gran ambiente de Broadway y una brillante magia de hielo.",
+    tx8: "Como colofón, la orquesta enciende unos verdaderos fuegos artificiales musicales de Navidad. El compositor estadounidense Leroy Anderson, mundialmente conocido por su clásico «Sleigh Ride», ha reunido en esta festiva obertura de concierto los villancicos tradicionales más queridos (como «Joy to the World», «Jingle Bells» o «Noche de paz») en una obra deslumbrante. ¡Un final animado y radiante que les enviará a la noche con una alegre expectación navideña!",
+    ab_label: "El conjunto", ab_title: "Sobre la Orquesta DB",
+    ab_p1: "Según el proyecto, en la orquesta de cámara se reúnen unos 25 músicos y en la orquesta sinfónica unos 50 para preparar un nuevo programa y presentar finalmente el resultado en un concierto.",
+    ab_p2: "La orquesta está formada por compañeras y compañeros de distintas áreas de negocio. Ensayamos en nuestro tiempo libre y actuamos aproximadamente una o dos veces al año. A veces también apoyamos causas sociales y ofrecemos conciertos benéficos.",
+    ab_role: "Fundador y director de la Orquesta DB", ab_alt: "Patrick Chirilus-Bruckner, fundador y director de la Orquesta DB, con la batuta",
+    jo_title: "¿Tocas un instrumento? ¡Toca con nosotros!",
+    jo_text: "Todos los invitados que toquen un instrumento están cordialmente invitados a tocar en nuestro conjunto, sea cual sea el instrumento. Nos alegraría especialmente contar con instrumentistas de cuerda. Escríbenos simplemente un breve correo y nos pondremos en contacto contigo. Todo el mundo puede participar.",
+    jo_btn: "Escribir por correo",
+    ft_title: "Acompáñenos en una velada inolvidable.",
+    ft_note: "El enlace de inscripción solo funciona para empleados de DB. Todas las demás personas deben reservar o cancelar sus plazas por correo electrónico, y también pueden escribirnos con cualquier pregunta sobre el concierto: " + M,
+    ft_join: "¿Tocas un instrumento? " + J("¡Toca con nosotros!"),
+    ft_partner: "El concierto tiene lugar en colaboración con la Stiftungsfamilie BSW &amp; EWH.",
+    ft_copy: "© 2026 Orquesta DB. Todos los derechos reservados."
+  };
+
+  I18N.it = {
+    nav_overview: "Panoramica", nav_program: "Programma", nav_ensemble: "Ensemble", nav_join: "Suona con noi", nav_contact: "Contatti",
+    aria_nav: "Navigazione principale", aria_menu: "Menu", aria_lang: "Lingua", info_aria: "Informazioni su {t}",
+    btn_reserve: "Prenota i posti", reserve_short: "Prenota", btn_cancel: "annulla", btn_program: "Vedi il programma",
+    hero_presents: "L'Orchestra DB presenta",
+    hero_sub: "Una festosa serata di concerto nella Evangelische Christuskirche di Oberursel, con opere di Bach, Fauré e Ravel e celebri melodie da The Polar Express e Frozen.",
+    hero_note: "Il link di iscrizione funziona solo per i dipendenti DB. Tutti gli altri sono pregati di prenotare o annullare i posti per e-mail all'indirizzo " + M + ".",
+    partner_with: "In collaborazione con",
+    ov_title: "La serata in breve", ov_perf: "Il concerto", ov_date: "Giovedì 26 novembre 2026",
+    ov_times: "Inizio: ore 18:30 | Apertura porte: ore 18:00", ov_venue: "La sede", ov_route: "Indicazioni stradali", ov_travel: "Come arrivare",
+    ov_travel_text: "Ottimi collegamenti con la U3 o la S5",
+    pr_label: "Repertorio", pr_title: "Programma del concerto",
+    pr_intro: "Siamo molto lieti di accogliere voi, le vostre famiglie e i vostri amici a una festosa serata di concerto nella Evangelische Christuskirche di Oberursel. Vi aspetta un programma variegato con opere di Bach, Fauré e Ravel e celebri melodie da The Polar Express e Frozen. A chiudere la serata con atmosfera suggestiva saranno i brani natalizi più amati di Leroy Anderson.",
+    t2: "Aria dalla Suite n. 3", t5: "Ma mère l'Oye (estratti)", r2: "II. Le Jardin féerique (con transizione)", info_label: "Info",
+    c1: "Johann Sebastian Bach (arrangiamento: Jerry Brubaker)", c4: "Gabriel Fauré (arrangiamento per orchestra da camera)",
+    rv1: "I. Pavane de la Belle au bois dormant (Pavana della Bella addormentata)", rv2: "II. Le Jardin féerique (Il giardino fatato, con transizione)",
+    tx1: "In apertura di serata, alcune delle melodie più celebri della storia della musica si fondono in un vivace medley. L'arrangiatore Jerry Brubaker ha intrecciato con maestria temi noti di Johann Sebastian Bach, tra cui brani dei Concerti brandeburghesi e della celebre Toccata. Un inizio festoso e carico di energia, che fa subito rivivere nella sala il fascino senza tempo della musica barocca.",
+    tx2: "Dopo il vivace esordio arriva uno dei momenti più intimi e rasserenanti di tutta la musica classica. L'«Aria» proviene dalla terza suite per orchestra di Bach e conquista con la sua melodia sospesa, quasi senza peso, sopra una linea di basso che avanza con passo regolare. È un brano per fermarsi e respirare, che riempie la chiesa di un calore pacifico e speciale.",
+    tx3: "Il compositore e direttore d'orchestra italiano Giovanni Bolzoni scrisse questo affascinante brano alla fine dell'Ottocento come omaggio affettuoso all'eleganza di corte del Settecento. Il minuetto incanta con la sua leggerezza danzante, la sua grazia delicata e un tocco di cantabilità italiana. Ascoltandolo, si immagina quasi un antico salone da ballo illuminato dalle candele.",
+    tx4: "«Dopo un sogno», composta originariamente nel 1877 come lied per voce e pianoforte, è una delle più belle perle del tardo Romanticismo francese. La musica racconta il volo sognante e beato di due innamorati, seguito dal malinconico risveglio nella realtà. L'ampia e profondamente commovente melodia sviluppa una dolce malinconia che arriva dritta al cuore. Nel concerto il brano viene eseguito in un arrangiamento per orchestra da camera.",
+    tx5: "Con la sua suite «Mia madre l'Oca», Maurice Ravel ci porta direttamente nel magico mondo delle fiabe francesi. L'opera inizia con una miniatura delicata e sognante che dipinge in timbri scintillanti il sonno sereno della Bella addormentata. Attraverso un misterioso passaggio si apre infine il portale del «Giardino fatato»: la musica cresce da un dolce sussurro fino a un edificio sonoro radioso e maestoso che, come un mare di luci scintillanti, apre la strada alla seconda parte del programma.",
+    tx6: "Tutti a bordo! Con la musica del noto film natalizio «Polar Express» inizia un magico viaggio in treno nella notte invernale innevata fino al Polo Nord. Il compositore Alan Silvestri cattura con brio il ritmico sbuffare della locomotiva a vapore e insieme lo stupore infantile e la calda magia del Natale. Un brano di cinema trascinante per le orecchie e, naturalmente, una piccola partita in casa per l'Orchestra DB!",
+    tx7: "Con «Frozen» di Disney, lo scintillante inverno fa finalmente il suo ingresso. I coniugi Lopez hanno creato per questa moderna fiaba invernale, con le sorelle Anna ed Elsa e il simpatico pupazzo di neve Olaf, melodie che oggi si cantano in tutto il mondo. Dai ritmi giocosi e umoristici fino al grande e commovente inno «Let It Go» («All'alba sorgerò»), questo medley porta nel concerto una grande atmosfera da Broadway e una scintillante magia di ghiaccio.",
+    tx8: "Come gran finale l'orchestra accende un vero e proprio fuoco d'artificio natalizio. Il compositore americano Leroy Anderson, famoso in tutto il mondo per il suo classico «Sleigh Ride», ha riunito in questa festosa ouverture da concerto i canti natalizi tradizionali più amati (come «Joy to the World», «Jingle Bells» o «Astro del ciel») in un brillante insieme. Un finale vivace e splendente che vi accompagnerà in serata con una gioiosa attesa natalizia!",
+    ab_label: "L'ensemble", ab_title: "L'Orchestra DB",
+    ab_p1: "A seconda del progetto, nell'orchestra da camera si riuniscono circa 25 musicisti e in quella sinfonica circa 50, per preparare un nuovo programma e presentarne infine il risultato in concerto.",
+    ab_p2: "L'orchestra è composta da colleghe e colleghi di diversi settori aziendali. Proviamo nel tempo libero e ci esibiamo circa una o due volte l'anno. A volte sosteniamo anche cause sociali e organizziamo concerti di beneficenza.",
+    ab_role: "Fondatore e direttore dell'Orchestra DB", ab_alt: "Patrick Chirilus-Bruckner, fondatore e direttore dell'Orchestra DB, con la bacchetta",
+    jo_title: "Suoni uno strumento? Suona con noi!",
+    jo_text: "Tutti gli ospiti che suonano uno strumento sono invitati a suonare nel nostro ensemble, qualunque sia lo strumento. Saremmo particolarmente felici di accogliere archi. Scrivici semplicemente una breve e-mail: ti risponderemo noi. Possono partecipare tutti.",
+    jo_btn: "Scrivici via e-mail",
+    ft_title: "Accompagnateci per una serata indimenticabile.",
+    ft_note: "Il link di iscrizione funziona solo per i dipendenti DB. Tutti gli altri sono pregati di prenotare o annullare i posti per e-mail, che potete usare anche per qualsiasi domanda sul concerto: " + M,
+    ft_join: "Suoni uno strumento? " + J("Suona con noi!"),
+    ft_partner: "Il concerto si svolge in collaborazione con la Stiftungsfamilie BSW &amp; EWH.",
+    ft_copy: "© 2026 Orchestra DB. Tutti i diritti riservati."
+  };
+
+  I18N.pt = {
+    nav_overview: "Visão geral", nav_program: "Programa", nav_ensemble: "Conjunto", nav_join: "Toque connosco", nav_contact: "Contacto",
+    aria_nav: "Navegação principal", aria_menu: "Menu", aria_lang: "Idioma", info_aria: "Informações sobre {t}",
+    btn_reserve: "Reservar lugares", reserve_short: "Reservar", btn_cancel: "cancelar", btn_program: "Ver programa",
+    hero_presents: "A Orquestra DB apresenta",
+    hero_sub: "Uma festiva noite de concerto na Evangelische Christuskirche de Oberursel, com obras de Bach, Fauré e Ravel, bem como melodias conhecidas de The Polar Express e Frozen.",
+    hero_note: "A ligação de inscrição só funciona para colaboradores da DB. Todas as outras pessoas devem reservar ou cancelar lugares por e-mail para " + M + ".",
+    partner_with: "Em parceria com",
+    ov_title: "A noite de concerto num relance", ov_perf: "A atuação", ov_date: "Quinta-feira, 26 de novembro de 2026",
+    ov_times: "Início: 18:30 | Abertura das portas: 18:00", ov_venue: "O local", ov_route: "Como chegar", ov_travel: "Acessos",
+    ov_travel_text: "Excelentes ligações com a U3 ou a S5",
+    pr_label: "Repertório", pr_title: "Programa do concerto",
+    pr_intro: "É com grande alegria que recebemos vocês, as vossas famílias e amigos numa festiva noite de concerto na Evangelische Christuskirche de Oberursel. Preparem-se para um programa variado, com obras de Bach, Fauré e Ravel e melodias conhecidas de The Polar Express e Frozen. O encerramento, cheio de ambiente festivo, fica a cargo dos populares temas de Natal de Leroy Anderson.",
+    t2: "Ária da Suite n.º 3", t5: "Ma mère l'Oye (excertos)", r2: "II. Le Jardin féerique (com transição)", info_label: "Info",
+    c1: "Johann Sebastian Bach (arranjo: Jerry Brubaker)", c4: "Gabriel Fauré (arranjo para orquestra de câmara)",
+    rv1: "I. Pavane de la Belle au bois dormant (Pavana da Bela Adormecida)", rv2: "II. Le Jardin féerique (O Jardim das Fadas, com transição)",
+    tx1: "Para abrir a noite, algumas das melodias mais famosas da história da música fundem-se num medley animado. O arranjador Jerry Brubaker entrelaçou com arte temas conhecidos de Johann Sebastian Bach, entre eles excertos dos Concertos de Brandemburgo ou da célebre Tocata. Um início festivo e cheio de energia, que faz reviver de imediato na sala o brilho intemporal da música barroca.",
+    tx2: "Depois do arranque animado, chega um dos momentos mais íntimos e serenos de toda a música clássica. A «Ária» pertence à terceira suite orquestral de Bach e cativa pela sua melodia suspensa, quase sem peso, sobre uma linha de baixo de passo regular. É uma obra para parar e respirar fundo, que enche a igreja de um calor pacífico muito especial.",
+    tx3: "O compositor e maestro italiano Giovanni Bolzoni escreveu esta peça encantadora no final do século XIX, como uma homenagem afetuosa à elegância palaciana do século XVIII. O minueto encanta pela leveza dançante, pela graça delicada e por um toque de lirismo italiano. Ao ouvi-lo, quase se imagina um salão de baile antigo à luz das velas.",
+    tx4: "«Depois de um sonho» – composta originalmente em 1877 como canção para voz e piano, esta peça conta-se entre as mais belas pérolas do pós-romantismo francês. A música narra o voo sonhador e feliz de dois amantes, a que se segue o melancólico despertar na realidade. A melodia ampla e profundamente comovente desenvolve uma suave melancolia que toca diretamente o coração. No concerto, a peça é interpretada num arranjo para orquestra de câmara.",
+    tx5: "Com a sua suite «Mamã Gansa», Maurice Ravel leva-nos diretamente ao mundo encantado dos contos de fadas franceses. A obra começa com uma miniatura delicada e sonhadora, que retrata em cores cintilantes o sono tranquilo da Bela Adormecida. Através de uma passagem misteriosa, abre-se por fim o portão do «Jardim das Fadas»: a música cresce de um suave sussurro até um edifício sonoro radiante e majestoso que, como um mar de luzes cintilantes, abre caminho para a segunda parte do programa.",
+    tx6: "Todos a bordo! Com a música do conhecido filme de Natal «O Expresso Polar» começa uma viagem de comboio mágica, através da noite de inverno nevada, até ao Polo Norte. O compositor Alan Silvestri capta com brilhantismo o ritmo da locomotiva a vapor, tal como o deslumbramento infantil e a calorosa magia do Natal. Uma peça de cinema arrebatadora para os ouvidos – e, claro, um jogo em casa discreto para a Orquestra DB!",
+    tx7: "Com «Frozen» da Disney, o inverno cintilante faz finalmente a sua entrada. O casal Lopez criou para este moderno conto de inverno, sobre as irmãs Anna e Elsa e o bem-disposto boneco de neve Olaf, melodias que hoje se cantam em todo o mundo. De ritmos brincalhões e bem-humorados até ao grande hino emotivo «Livre Estou» («Let It Go»), este medley traz ao concerto uma grande atmosfera de Broadway e uma cintilante magia de gelo.",
+    tx8: "Como final de gala, a orquestra acende um verdadeiro fogo de artifício musical de Natal. O compositor americano Leroy Anderson, mundialmente conhecido pelo seu clássico «Sleigh Ride», reuniu nesta festiva abertura de concerto as canções de Natal tradicionais mais queridas (como «Joy to the World», «Jingle Bells» ou «Noite Feliz») numa obra brilhante. Um final animado e radiante que, com certeza, os fará seguir para a noite com festiva expectativa!",
+    ab_label: "O conjunto", ab_title: "Sobre a Orquestra DB",
+    ab_p1: "Consoante o projeto, reúnem-se cerca de 25 músicos na orquestra de câmara e 50 na orquestra sinfónica, para preparar um novo programa e apresentar, por fim, o resultado num concerto.",
+    ab_p2: "A orquestra é composta por colegas de várias áreas de negócio. Ensaiamos no nosso tempo livre e atuamos cerca de uma a duas vezes por ano. Por vezes apoiamos também causas sociais e damos concertos solidários.",
+    ab_role: "Fundador e maestro da Orquestra DB", ab_alt: "Patrick Chirilus-Bruckner, fundador e maestro da Orquestra DB, com a batuta",
+    jo_title: "Toca um instrumento? Toque connosco!",
+    jo_text: "Todos os convidados que tocam um instrumento são muito bem-vindos a tocar no nosso conjunto, seja qual for o instrumento. Ficaremos especialmente felizes com instrumentistas de cordas. Escreva-nos simplesmente um breve e-mail e entraremos em contacto consigo. Todos podem participar.",
+    jo_btn: "Contactar por e-mail",
+    ft_title: "Acompanhe-nos numa noite inesquecível.",
+    ft_note: "A ligação de inscrição só funciona para colaboradores da DB. Todas as outras pessoas devem reservar ou cancelar lugares por e-mail – o mesmo contacto serve para quaisquer dúvidas sobre o concerto: " + M,
+    ft_join: "Toca um instrumento? " + J("Toque connosco!"),
+    ft_partner: "O concerto realiza-se em parceria com a Stiftungsfamilie BSW &amp; EWH.",
+    ft_copy: "© 2026 Orquestra DB. Todos os direitos reservados."
+  };
+
+  I18N.sv = {
+    nav_overview: "Översikt", nav_program: "Program", nav_ensemble: "Ensemblen", nav_join: "Spela med", nav_contact: "Kontakt",
+    aria_nav: "Huvudnavigering", aria_menu: "Meny", aria_lang: "Språk", info_aria: "Information om {t}",
+    btn_reserve: "Boka platser", reserve_short: "Boka", btn_cancel: "avboka", btn_program: "Se programmet",
+    hero_presents: "DB-orkestern presenterar",
+    hero_sub: "En festlig konsertkväll i Evangelische Christuskirche i Oberursel – med verk av Bach, Fauré och Ravel samt välkända melodier ur The Polar Express och Frozen.",
+    hero_note: "Anmälningslänken fungerar bara för anställda på DB. Alla andra bokar eller avbokar platser via e-post till " + M + ".",
+    partner_with: "I samarbete med",
+    ov_title: "Konsertkvällen i korthet", ov_perf: "Konserten", ov_date: "Torsdag 26 november 2026",
+    ov_times: "Start: kl. 18.30 | Insläpp: kl. 18.00", ov_venue: "Platsen", ov_route: "Vägbeskrivning", ov_travel: "Hitta hit",
+    ov_travel_text: "Mycket goda förbindelser med U3 eller S5",
+    pr_label: "Repertoar", pr_title: "Konsertprogram",
+    pr_intro: "Vi är mycket glada över att få välkomna er, era familjer och vänner till en festlig konsertkväll i Evangelische Christuskirche i Oberursel. Se fram emot ett omväxlande program med verk av Bach, Fauré och Ravel samt välkända melodier ur The Polar Express och Frozen. Kvällen avslutas stämningsfullt med älskade julmelodier av Leroy Anderson.",
+    t2: "Air ur svit nr 3", t5: "Ma mère l'Oye (utdrag)", r2: "II. Le Jardin féerique (med övergång)", info_label: "Info",
+    c1: "Johann Sebastian Bach (arrangemang: Jerry Brubaker)", c4: "Gabriel Fauré (arrangemang för kammarorkester)",
+    rv1: "I. Pavane de la Belle au bois dormant (Pavan för Törnrosa)", rv2: "II. Le Jardin féerique (Älvträdgården, med övergång)",
+    tx1: "Inledningsvis smälter några av musikhistoriens mest berömda melodier samman i en svängig medley. Arrangören Jerry Brubaker har skickligt vävt ihop kända teman av Johann Sebastian Bach – bland annat utdrag ur Brandenburgkonserterna och den berömda Toccatan. En festlig och energisk start som genast väcker barockmusikens tidlösa lyskraft till liv i rummet.",
+    tx2: "Efter den svängiga inledningen följer ett av klassikens mest innerliga och stillsamma ögonblick. «Air» kommer från Bachs tredje orkestersvit och fångar med sin svävande, nästan viktlösa melodi över en jämnt skridande basgång. Ett verk att pausa och andas ut till, som fyller kyrkorummet med en alldeles särskild, fridfull värme.",
+    tx3: "Den italienske tonsättaren och dirigenten Giovanni Bolzoni skrev detta charmerande verk i slutet av 1800-talet som en kärleksfull hyllning till 1700-talets hovelegans. Menuetten förtrollar med sin dansanta lätthet, fina behag och en doft av italiensk sångbarhet. När man lyssnar kan man nästan se en historisk balsal i levande ljus framför sig.",
+    tx4: "«Efter en dröm» – ursprungligen komponerad 1877 som romans för sång och piano – hör till den franska senromantikens vackraste pärlor. Musiken berättar om två älskandes drömlika, lyckosamma flykt, följd av det vemodiga uppvaknandet i verkligheten. Den vida, djupt rörande melodin utvecklar en ömsint melankoli som går rakt in i hjärtat. På konserten framförs stycket i ett arrangemang för kammarorkester.",
+    tx5: "Med sin svit «Mor Gåse» för Maurice Ravel oss rakt in i sagornas förtrollade franska värld. Verket börjar med en späd, drömsk miniatyr som i skimrande klangfärger tecknar Törnrosas fridfulla sömn. Genom en hemlighetsfull övergång öppnas till sist porten till «Älvträdgården»: musiken växer från en mild viskning till en strålande, majestätisk klangbyggnad som likt ett gnistrande ljushav banar väg för programmets andra hälft.",
+    tx6: "Hoppa ombord! Med musiken till den kända julfilmen «Polarexpressen» börjar en magisk tågresa genom den snöiga vinternatten ända till Nordpolen. Kompositören Alan Silvestri fångar ånglokets rytmiska frustande lika briljant som barnens häpnad och julens varma magi. Ett medryckande stycke film för öronen – och förstås en lite hemlig hemmamatch för DB-orkestern!",
+    tx7: "Med Disneys «Frost» gör den glittrande vintern sitt intåg. Paret Lopez skapade för denna moderna vintersaga om systrarna Anna och Elsa och den glade snögubben Olaf melodier som i dag sjungs med över hela världen. Från lekfulla, humoristiska rytmer till den stora, känslosamma hymnen «Let It Go» («Slå dig fri») ger denna medley en stor Broadway-stämning och glittrande isig magi till konserten.",
+    tx8: "Som en kronande final tänder orkestern ett riktigt musikaliskt julfyrverkeri. Den amerikanske kompositören Leroy Anderson – världsberömd för sin klassiker «Sleigh Ride» – har i denna festliga konsertuvertyr sammanfogat de mest älskade traditionella julsångerna (som «Joy to the World», «Jingle Bells» eller «Stilla natt») till en glansfull helhet. En svängig, strålande final som garanterat skickar ut er i kvällen med festlig förväntan!",
+    ab_label: "Ensemblen", ab_title: "Om DB-orkestern",
+    ab_p1: "Beroende på projekt samlas omkring 25 musiker i kammarorkestern och 50 i symfoniorkestern för att arbeta fram ett nytt program och till sist framföra resultatet på en konsert.",
+    ab_p2: "Orkestern består av kollegor från olika verksamhetsområden. Vi repeterar på vår fritid och uppträder ungefär en till två gånger per år. Ibland stöder vi också sociala ändamål och ger välgörenhetskonserter.",
+    ab_role: "Grundare och dirigent för DB-orkestern", ab_alt: "Patrick Chirilus-Bruckner, grundare och dirigent för DB-orkestern, med taktpinne",
+    jo_title: "Spelar du ett instrument? Spela med oss!",
+    jo_text: "Alla gäster som själva spelar ett instrument är hjärtligt välkomna att spela med i vår ensemble – oavsett instrument. Särskilt glada blir vi över stråkmusiker. Skicka oss bara ett kort e-postmeddelande så återkommer vi till dig. Alla får vara med.",
+    jo_btn: "Anmäl dig via e-post",
+    ft_title: "Följ med oss på en oförglömlig kväll.",
+    ft_note: "Anmälningslänken fungerar bara för anställda på DB. Alla andra bokar eller avbokar platser via e-post – och hör också av sig dit med frågor om konserten: " + M,
+    ft_join: "Spelar du själv ett instrument? " + J("Spela med oss!"),
+    ft_partner: "Konserten arrangeras i samarbete med Stiftungsfamilie BSW &amp; EWH.",
+    ft_copy: "© 2026 DB-orkestern. Alla rättigheter förbehållna."
+  };
+
+  I18N.da = {
+    nav_overview: "Overblik", nav_program: "Program", nav_ensemble: "Ensemblet", nav_join: "Spil med", nav_contact: "Kontakt",
+    aria_nav: "Hovednavigation", aria_menu: "Menu", aria_lang: "Sprog", info_aria: "Information om {t}",
+    btn_reserve: "Reservér pladser", reserve_short: "Reservér", btn_cancel: "afbestil", btn_program: "Se programmet",
+    hero_presents: "DB-orkestret præsenterer",
+    hero_sub: "En festlig koncertaften i Evangelische Christuskirche i Oberursel – med værker af Bach, Fauré og Ravel samt kendte melodier fra The Polar Express og Frozen.",
+    hero_note: "Tilmeldingslinket virker kun for DB-medarbejdere. Alle andre bedes reservere eller afbestille pladser via e-mail til " + M + ".",
+    partner_with: "I samarbejde med",
+    ov_title: "Koncertaftenen i overblik", ov_perf: "Koncerten", ov_date: "Torsdag den 26. november 2026",
+    ov_times: "Start: kl. 18.30 | Dørene åbner: kl. 18.00", ov_venue: "Stedet", ov_route: "Rutevejledning", ov_travel: "Sådan kommer du hertil",
+    ov_travel_text: "Meget god tilgængelighed med U3 eller S5",
+    pr_label: "Repertoire", pr_title: "Koncertprogram",
+    pr_intro: "Vi glæder os meget til at byde jer, jeres familier og venner velkommen til en festlig koncertaften i Evangelische Christuskirche i Oberursel. Glæd jer til et afvekslende program med værker af Bach, Fauré og Ravel samt kendte melodier fra The Polar Express og Frozen. Den stemningsfulde afslutning står elskede julemelodier af Leroy Anderson for.",
+    t2: "Air fra suite nr. 3", t5: "Ma mère l'Oye (uddrag)", r2: "II. Le Jardin féerique (med overgang)", info_label: "Info",
+    c1: "Johann Sebastian Bach (arrangement: Jerry Brubaker)", c4: "Gabriel Fauré (arrangement for kammerorkester)",
+    rv1: "I. Pavane de la Belle au bois dormant (Pavane for Tornerose)", rv2: "II. Le Jardin féerique (Den fortryllede have, med overgang)",
+    tx1: "Som åbning smelter nogle af musikhistoriens mest berømte melodier sammen i en svingende medley. Arrangøren Jerry Brubaker har kunstfærdigt vævet kendte temaer af Johann Sebastian Bach sammen – blandt andet uddrag fra Brandenburgkoncerterne og den berømte Toccata. En festlig og energisk indledning, der straks får barokmusikkens tidløse udstråling til at leve i rummet.",
+    tx2: "Efter den svingende åbning følger et af klassikkens mest inderlige og rolige øjeblikke. «Air» stammer fra Bachs tredje orkestersuite og fanger med sin svævende, næsten vægtløse melodi over en jævnt skridende basstemme. Et værk, der inviterer til at holde en pause og trække vejret, og som fylder kirkerummet med en helt særlig, fredfyldt varme.",
+    tx3: "Den italienske komponist og dirigent Giovanni Bolzoni skrev dette charmerende værk i slutningen af 1800-tallet som en kærlig hyldest til 1700-tallets hofelegance. Menuetten fortryller med sin dansende lethed, fine ynde og et strejf af italiensk sangbarhed. Når man lytter, kan man næsten forestille sig en historisk balsal i levende lys.",
+    tx4: "«Efter en drøm» – oprindeligt komponeret i 1877 som kunstsang for sang og klaver – hører til de smukkeste perler i den franske senromantik. Musikken fortæller om to elskendes drømmeagtige, lykkelige flugt, efterfulgt af det vemodige vågne op i virkeligheden. Den vidtsvungne, dybt rørende melodi udfolder en blid melankoli, der går lige til hjertet. Til koncerten opføres stykket i et arrangement for kammerorkester.",
+    tx5: "Med sin suite «Mor Gåse» fører Maurice Ravel os direkte ind i de franske eventyrs fortryllende verden. Værket begynder med en sart, drømmende miniature, der i skimrende klangfarver tegner Tornerosens fredfyldte søvn. Gennem en hemmelighedsfuld overgang åbner porten sig endelig til «Den fortryllede have»: Musikken vokser fra en blid hvisken til et strålende, majestætisk klangbyggeri, der som et funklende lyshav baner vejen ind i programmets anden halvdel.",
+    tx6: "Alle mand ombord! Med musikken til den kendte julefilm «Polarekspressen» begynder en magisk togrejse gennem den snefyldte vinternat helt til Nordpolen. Komponisten Alan Silvestri indfanger damplokomotivets rytmiske stampen lige så brillant som børnenes undren og julens varme magi. Et medrivende stykke biograf for ørerne – og selvfølgelig en lille hjemmebanekamp for DB-orkestret!",
+    tx7: "Med Disneys «Frost» holder den glitrende vinter sit indtog. Ægteparret Lopez skabte til dette moderne vintereventyr om søstrene Anna og Elsa og den muntre snemand Olaf melodier, der i dag bliver sunget med over hele verden. Fra legende, humoristiske rytmer til den store, følelsesfulde hymne «Let It Go» bringer denne medley stor Broadway-stemning og glitrende isnende magi til koncerten.",
+    tx8: "Som kronen på værket sender orkestret et sandt musikalsk julefyrværkeri afsted. Den amerikanske komponist Leroy Anderson – verdensberømt for sin klassiker «Sleigh Ride» – har i denne festlige koncertouverture forenet de mest elskede traditionelle julesange (som «Joy to the World», «Jingle Bells» eller «Glade jul») til en glansfuld helhed. En svingende, strålende finale, der garanteret sender jer ud i aftenen med festlig forventning!",
+    ab_label: "Ensemblet", ab_title: "Om DB-orkestret",
+    ab_p1: "Afhængigt af projektet samles omkring 25 musikere i kammerorkestret og 50 i symfoniorkestret for at udarbejde et nyt program og til sidst præsentere resultatet musikalsk til en koncert.",
+    ab_p2: "Orkestret består af kolleger fra forskellige forretningsområder. Vi øver i vores fritid og spiller omkring en til to gange om året. Nogle gange støtter vi også sociale formål og giver velgørenhedskoncerter.",
+    ab_role: "Grundlægger og dirigent af DB-orkestret", ab_alt: "Patrick Chirilus-Bruckner, grundlægger og dirigent af DB-orkestret, med dirigentstok",
+    jo_title: "Spiller du et instrument? Spil med os!",
+    jo_text: "Alle gæster, der selv spiller et instrument, er hjertelig velkomne til at spille med i vores ensemble – uanset hvilket instrument. Vi glæder os især over strygere. Skriv bare en kort e-mail til os, så vender vi tilbage til dig. Alle kan være med.",
+    jo_btn: "Skriv til os pr. e-mail",
+    ft_title: "Følg med os på en uforglemmelig aften.",
+    ft_note: "Tilmeldingslinket virker kun for DB-medarbejdere. Alle andre bedes reservere eller afbestille pladser via e-mail – også ved spørgsmål om koncerten: " + M,
+    ft_join: "Spiller du selv et instrument? " + J("Spil med os!"),
+    ft_partner: "Koncerten afholdes i samarbejde med Stiftungsfamilie BSW &amp; EWH.",
+    ft_copy: "© 2026 DB-orkestret. Alle rettigheder forbeholdes."
+  };
+
+  I18N.ja = {
+    nav_overview: "概要", nav_program: "プログラム", nav_ensemble: "アンサンブル", nav_join: "一緒に演奏", nav_contact: "お問い合わせ",
+    aria_nav: "メインナビゲーション", aria_menu: "メニュー", aria_lang: "言語", info_aria: "{t}の詳細情報",
+    btn_reserve: "席を予約する", reserve_short: "予約", btn_cancel: "キャンセル", btn_program: "プログラムを見る",
+    hero_presents: "DBオーケストラ プレゼンツ",
+    hero_sub: "オーバーウーゼルのEvangelische Christuskircheで開催する、華やかなコンサートの夕べ。バッハ、フォーレ、ラヴェルの作品に加え、『ポーラー・エクスプレス』や『アナと雪の女王』でおなじみの名曲をお届けします。",
+    hero_note: "参加登録リンクはDB社員のみご利用いただけます。それ以外の方は、座席の予約・キャンセルを " + M + " までメールでお知らせください。",
+    partner_with: "協力",
+    ov_title: "コンサートの概要", ov_perf: "公演", ov_date: "2026年11月26日（木）",
+    ov_times: "開演 18:30 | 開場 18:00", ov_venue: "会場", ov_route: "道順", ov_travel: "アクセス",
+    ov_travel_text: "U3またはS5で好アクセス",
+    pr_label: "レパートリー", pr_title: "コンサートプログラム",
+    pr_intro: "ご家族やご友人とご一緒に、オーバーウーゼルのEvangelische Christuskircheでの華やかなコンサートの夕べにお迎えできることを、心より楽しみにしております。バッハ、フォーレ、ラヴェルの作品と、『ポーラー・エクスプレス』や『アナと雪の女王』のおなじみのメロディが並ぶ、変化に富んだプログラムをお楽しみください。ルロイ・アンダーソンによる親しみやすいクリスマスの調べが、雰囲気豊かに夜を締めくくります。",
+    t2: "組曲第3番より「エア」", t5: "「マ・メール・ロワ」より（抜粋）", r2: "II. Le Jardin féerique（つなぎあり）", info_label: "Info",
+    c1: "Johann Sebastian Bach（編曲：Jerry Brubaker）", c4: "Gabriel Fauré（室内オーケストラ編曲）",
+    rv1: "I. Pavane de la Belle au bois dormant（眠れる森の美女のパヴァーヌ）", rv2: "II. Le Jardin féerique（妖精の園・つなぎあり）",
+    tx1: "夕べの幕開けは、音楽史上もっとも有名なメロディの数々が躍動感あふれるメドレーとなって溶け合います。編曲者ジェリー・ブルベイカーは、ブランデンブルク協奏曲やあの有名なトッカータの一節など、ヨハン・ゼバスティアン・バッハのよく知られた主題を巧みに織り上げました。祝祭的でエネルギーに満ちたオープニングが、バロック音楽の時を超えた輝きを会場にたちまち蘇らせます。",
+    tx2: "活気ある幕開けに続くのは、クラシック音楽の中でも指折りの、心に深く染みわたる穏やかなひとときです。「エア」はバッハの管弦楽組曲第3番に含まれる作品で、規則正しく歩むような低音の上を漂う、ほとんど重さを感じさせない旋律が魅力です。立ち止まって深く息をつくための一曲が、教会の空間を格別に穏やかなぬくもりで満たします。",
+    tx3: "イタリアの作曲家・指揮者ジョヴァンニ・ボルツォーニが19世紀後半に書いたこの愛らしい作品は、18世紀の宮廷の優雅さへの心温まるオマージュです。メヌエットは、舞うような軽やかさ、繊細な優美さ、そしてイタリアらしい歌心をほのかにたたえています。聴いていると、ろうそくの灯りに包まれた歴史ある舞踏の間が目に浮かぶようです。",
+    tx4: "「夢のあとに」は、1877年に声とピアノのための歌曲として作曲され、フランス後期ロマン派を代表する名曲のひとつです。二人の恋人が夢の中で幸福に飛翔し、やがて現実へと切なく目覚める様子が描かれます。大きく弧を描く深く心に響く旋律は、胸に直接届くやさしい憂いを帯びています。今回のコンサートでは、室内オーケストラ編曲版でお届けします。",
+    tx5: "ラヴェルは組曲「マ・メール・ロワ（マザー・グース）」で、私たちをフランスのおとぎ話の魔法の世界へと誘います。作品は、眠れる森の美女の安らかな眠りをきらめく音色で描く、繊細で夢見るような小品から始まります。神秘的な移行を経て、ついに「妖精の園」の扉が開きます。音楽はやさしいささやきから、輝かしく堂々とした響きの建築へと成長し、きらめく光の海のように、プログラム後半への道を開きます。",
+    tx6: "ご乗車ください！ 有名なクリスマス映画『ポーラー・エクスプレス』の音楽とともに、雪の降る冬の夜を抜けて北極点へと向かう、魔法のような列車の旅が始まります。作曲家アラン・シルヴェストリは、蒸気機関車のリズミカルな響きも、子どもたちの驚きやクリスマスの温かな魔法も見事に描き出しました。耳で味わう胸躍る映画音楽。そしてもちろん、DBオーケストラにとってはちょっとしたホームゲームです！",
+    tx7: "ディズニーの『アナと雪の女王』で、きらめく冬がついに幕を開けます。ロペス夫妻は、姉妹アナとエルサ、陽気な雪だるまオラフが登場する現代の冬のおとぎ話のために、今や世界中で歌われる旋律を生み出しました。遊び心とユーモアあふれるリズムから、壮大で感動的な「ありのままで」（Let It Go）まで、このメドレーはブロードウェイの華やかさときらめく氷の魔法をコンサートにもたらします。",
+    tx8: "フィナーレを飾るのは、まさに音楽のクリスマス花火です。「そりすべり（Sleigh Ride）」の名曲で世界的に知られるアメリカの作曲家ルロイ・アンダーソンは、この華やかな演奏会用序曲で、「ジョイ・トゥ・ザ・ワールド」「ジングル・ベル」「きよしこの夜」など、親しまれてきた伝統的なクリスマスの歌を、輝かしい一つの作品に結び合わせました。弾むように輝くフィナーレが、お帰りの道をクリスマスの期待感で満たしてくれることでしょう！",
+    ab_label: "アンサンブル", ab_title: "DBオーケストラについて",
+    ab_p1: "プロジェクトに応じて、室内オーケストラでは約25名、交響楽団では約50名の奏者が集まり、新しいプログラムに取り組み、その成果をコンサートで披露します。",
+    ab_p2: "オーケストラは、さまざまな事業分野の同僚で構成されています。練習は余暇の時間に行い、年に1～2回ほど演奏しています。社会貢献のためのチャリティーコンサートを開くこともあります。",
+    ab_role: "DBオーケストラ創設者・指揮者", ab_alt: "Patrick Chirilus-Bruckner、DBオーケストラ創設者・指揮者。指揮棒を手に",
+    jo_title: "楽器を演奏しますか？ 一緒に演奏しましょう！",
+    jo_text: "ご自身で楽器を演奏される来場者の皆さまは、どなたでも私たちのアンサンブルでの演奏を大歓迎します。楽器の種類は問いません。特に弦楽器の方を歓迎します。簡単なメールをお送りいただければ、こちらからご連絡いたします。どなたでも参加できます。",
+    jo_btn: "メールで連絡する",
+    ft_title: "忘れられない夜を、ご一緒に。",
+    ft_note: "参加登録リンクはDB社員のみご利用いただけます。それ以外の方は、座席の予約・キャンセルをメールでお知らせください。コンサートに関するご質問もこちらまで：" + M,
+    ft_join: "楽器を演奏されますか？ " + J("一緒に演奏しましょう！"),
+    ft_partner: "本コンサートは Stiftungsfamilie BSW &amp; EWH の協力のもと開催されます。",
+    ft_copy: "© 2026 DBオーケストラ. 全著作権所有。"
+  };
+
+  var LANGS = ['de','en','fr','es','it','pt','sv','da','ja'];
+  var ORIG = {}, ORIG_ARIA = {}, ORIG_ALT = {};
+  var els = document.querySelectorAll('[data-i18n]');
+  for (var i = 0; i < els.length; i++) { var k = els[i].getAttribute('data-i18n'); if (!(k in ORIG)) ORIG[k] = els[i].innerHTML; }
+  var ar = document.querySelectorAll('[data-i18n-aria]');
+  for (i = 0; i < ar.length; i++) { k = ar[i].getAttribute('data-i18n-aria'); if (!(k in ORIG_ARIA)) ORIG_ARIA[k] = ar[i].getAttribute('aria-label'); }
+  var al = document.querySelectorAll('[data-i18n-alt]');
+  for (i = 0; i < al.length; i++) { k = al[i].getAttribute('data-i18n-alt'); if (!(k in ORIG_ALT)) ORIG_ALT[k] = al[i].getAttribute('alt'); }
+  var DE = {}; for (k in ORIG) DE[k] = ORIG[k]; for (k in ORIG_ARIA) DE[k] = ORIG_ARIA[k]; for (k in ORIG_ALT) DE[k] = ORIG_ALT[k];
+  DE.info_aria = 'Informationen zu {t}';
+  I18N.de = DE;
+  function tr(lang, key) { var d = I18N[lang]; return (d && d[key] != null) ? d[key] : DE[key]; }
+  var sels = [document.getElementById('lang-d'), document.getElementById('lang-m')];
+  function apply(lang) {
+    if (LANGS.indexOf(lang) < 0) lang = 'de';
+    document.documentElement.lang = lang;
+    for (var i = 0; i < els.length; i++) els[i].innerHTML = tr(lang, els[i].getAttribute('data-i18n'));
+    for (i = 0; i < ar.length; i++) ar[i].setAttribute('aria-label', tr(lang, ar[i].getAttribute('data-i18n-aria')));
+    for (i = 0; i < al.length; i++) al[i].setAttribute('alt', tr(lang, al[i].getAttribute('data-i18n-alt')));
+    var btns = document.querySelectorAll('.info-btn');
+    for (i = 0; i < btns.length; i++) {
+      var h = btns[i].closest('.prog-item').querySelector('h4');
+      btns[i].setAttribute('aria-label', tr(lang, 'info_aria').replace('{t}', h ? h.textContent : ''));
+    }
+    sels.forEach(function (s) { if (s) s.value = lang; });
+    try { localStorage.setItem('ww-lang', lang); } catch (e) {}
+  }
+  sels.forEach(function (s) { if (s) s.addEventListener('change', function () { apply(s.value); }); });
+  var saved = null;
+  try { saved = localStorage.getItem('ww-lang'); } catch (e) {}
+  if (saved && saved !== 'de') apply(saved);
+})();
+</script>
+</body>
+</html>
